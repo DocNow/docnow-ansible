@@ -1,0 +1,87 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: add keys to AWS
+    ec2_key:
+        name: '{{ environment_public_ssh_key_name }}'
+        key_material: '{{ item }}'
+        state: present
+        force: false
+        region: '{{ vpc_region }}'
+        aws_access_key: '{{ aws_access_key }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+    with_file: '{{ ssh_public_key }}'
+
+  - name: create security group
+    ec2_group:
+      name: docnow-dev-group
+      description: docnow ssh and docker rules
+      region: '{{ vpc_region }}'
+      aws_access_key: '{{ aws_access_key }}'
+      aws_secret_key: '{{ aws_secret_key }}'
+      rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0
+          - proto: tcp
+            from_port: 3000
+            to_port: 3000
+            cidr_ip: 0.0.0.0/0
+      state: present
+
+  - name: create an ec2 instance
+    ec2:
+      state: present
+      image: '{{ image }}'
+      instance_type: '{{ instance_type }}'
+      wait: 'yes'
+      wait_timeout: 600
+      key_name: '{{ environment_public_ssh_key_name }}'
+      region: '{{ vpc_region }}'
+      aws_access_key: '{{ aws_access_key }}'
+      aws_secret_key: '{{ aws_secret_key }}'
+    register: ec2
+
+  - debug: var=ec2
+  - debug: var=ec2.instances
+  - debug: var=ec2.instances[0].public_ip
+
+  - name: add host to manage remotely
+    add_host:
+        hostname: '{{ item.public_ip }}'
+        groupname: 'docnow-test'
+    with_items: '{{ ec2.instances }}'
+
+  - name: wait for instance to listen for SSH
+    wait_for:
+        state: started
+        host: '{{ item.public_ip }}'
+        port: 22
+        delay: 10
+        timeout: 360
+    with_items: '{{ ec2.instances }}'
+
+- hosts: 'docnow-test'
+  gather_facts: no
+  user: ubuntu
+  tasks:
+
+  - name: install minimal python
+    raw: sudo bash -c "test -e /usr/bin/python || (apt install -qy python-minimal aptitude)"
+
+  - name: update cache
+    apt:
+        update_cache: yes
+        upgrade: yes
+        cache_valid_time: 3600
+
+  - name: download docker
+    get_url:
+      url: 'https://get.docker.com'
+      dest: '/tmp/docker_installer'
+      mode: 0755
+
+  - name: install docker
+    command: /tmp/docker_installer
