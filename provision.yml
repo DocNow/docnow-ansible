@@ -77,11 +77,28 @@
         upgrade: yes
         cache_valid_time: 3600
 
-  - name: download docker
-    get_url:
-      url: 'https://get.docker.com'
-      dest: '/tmp/docker_installer'
-      mode: 0755
+  - name: install packages to allow apt to use https
+    apt:
+      name: '{{ item }}'
+      state: present
+    with_items:
+      - software-properties-common
+      - apt-transport-https
+      - ca-certificates
+      - curl
+
+  - name: add docker's official GPG key
+    apt_key:
+      url: 'https://download.docker.com/linux/ubuntu/gpg'
+      state: present
+
+  - name: add docker repository
+    apt_repository:
+      repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable'
+      state: present
 
   - name: install docker
-    command: /tmp/docker_installer
+    apt:
+      name: docker
+      state: present
+      update_cache: yes
