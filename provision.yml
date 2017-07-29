@@ -99,6 +99,23 @@
 
   - name: install docker
     apt:
-      name: docker
+      name: docker-ce
       state: present
       update_cache: yes
+
+  - name: add docker group
+    group:
+      name: docker
+      state: present
+
+  - name: add ubuntu user to docker group
+    user:
+      name: ubuntu
+      groups: docker
+      append: yes
+
+  - name: enable docker
+    systemd:
+      name: docker
+      state: started
+      enabled: yes
