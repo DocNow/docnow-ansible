@@ -135,13 +135,3 @@
       state: directory
       owner: ubuntu
       group: ubuntu
-
-  - name: clone docnow repo
-    git:
-      repo: 'https://github.com/docnow/docnow.git'
-      dest: '/opt/docnowapp'
-
-  - name: deploy app
-    command: /usr/local/bin/docker-compose up
-    args:
-      chdir: '/opt/docnowapp/'
