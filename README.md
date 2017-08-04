@@ -94,4 +94,16 @@ the
 * the `b` flag gives elevated privileges to the remote user
 
 When this is done your playbook will list the IP of the completed end point to
-log into 
+log into. Below is an example of a completed play.
+
+```
+PLAY RECAP ******************************************************************************************************************************************************************************************************************************************************************
+54.235.55.73               : ok=13   changed=10   unreachable=0    failed=0
+localhost                  : ok=9    changed=3    unreachable=0    failed=0
+```
+
+In that example pointing your browser to 
+
+http://54.235.55.73:3000
+
+will lead you to your application.
