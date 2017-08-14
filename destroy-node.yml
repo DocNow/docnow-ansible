@@ -1,0 +1,14 @@
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: get instance facts
+      action: ec2_facts
+      register: ec2_facts
+
+    - name: add old to existing nodes
+      local_action: ec2_tag
+      resource: '{{ ec2_facts.ansible_facts.ansible_ec2_instance_id }}'
+      region: '{{ vpc_region }}'
+      state: present
+
