@@ -7,8 +7,16 @@
       register: ec2_facts
 
     - name: add old to existing nodes
-      local_action: ec2_tag
-      resource: '{{ ec2_facts.ansible_facts.ansible_ec2_instance_id }}'
-      region: '{{ vpc_region }}'
-      state: present
+      local_action: ec2_tag resource='{{ ec2_facts.ansible_facts.ansible_ec2_instance_id }}' region='{{ vpc_region }}' state=present
+      args:
+        tags:
+          olddocnow: true
 
+    - name: terminate old instance
+      action: ec2_facts
+    - name: terminating old instance
+      local_action:
+        module: ec2
+        state: absent
+        region: '{{ vpc_region }}'
+        instance_ids: '{{ ansible_ec2_instance_id }}'
