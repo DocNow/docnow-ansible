@@ -44,7 +44,7 @@
       aws_secret_key: '{{ aws_secret_key }}'
       instance_tags:
         docnow: docker
-      monitoring: yes
+      monitoring: 'yes'
     register: ec2
 
   - debug: var=ec2
@@ -67,7 +67,7 @@
     with_items: '{{ ec2.instances }}'
 
 - hosts: 'docnow-test'
-  gather_facts: no
+  gather_facts: 'no'
   user: ubuntu
   tasks:
 
@@ -76,75 +76,75 @@
 
   - name: update cache
     apt:
-        update_cache: yes
-        upgrade: yes
+        update_cache: 'yes'
+        upgrade: 'yes'
         cache_valid_time: 3600
 
   - name: install packages to allow apt to use https
     apt:
-      name: '{{ item }}'
-      state: present
+        name: '{{ item }}'
+        state: present
     with_items:
-      - software-properties-common
-      - apt-transport-https
-      - ca-certificates
-      - curl
+        - software-properties-common
+        - apt-transport-https
+        - ca-certificates
+        - curl
 
   - name: add docker's official GPG key
     apt_key:
-      url: 'https://download.docker.com/linux/ubuntu/gpg'
-      state: present
+        url: 'https://download.docker.com/linux/ubuntu/gpg'
+        state: present
 
   - name: add docker repository
     apt_repository:
-      repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable'
-      state: present
+        repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable'
+        state: present
 
   - name: install docker
     apt:
-      name: docker-ce
-      state: present
-      update_cache: yes
+        name: docker-ce
+        state: present
+        update_cache: 'yes'
 
   - name: add docker group
     group:
-      name: docker
-      state: present
+        name: docker
+        state: present
 
   - name: add ubuntu user to docker group
     user:
-      name: ubuntu
-      groups: docker
-      append: yes
+        name: ubuntu
+        groups: docker
+        append: 'yes'
 
   - name: enable docker
     systemd:
-      name: docker
-      state: started
-      enabled: yes
+        name: docker
+        state: started
+        enabled: 'yes'
 
   - name: Install Docker Compose
     get_url:
-      url: 'https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64'
-      dest: '/usr/local/bin/docker-compose'
-      force: True
-      owner: 'root'
-      group: 'root'
-      mode: '0755'
+        url: 'https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64'
+        dest: '/usr/local/bin/docker-compose'
+        force: 'True'
+        owner: 'root'
+        group: 'root'
+        mode: '0755'
 
   - name: create app home
     file:
-      path: '/opt/docnowapp'
-      state: directory
-      owner: ubuntu
-      group: ubuntu
+        path: '/opt/docnowapp'
+        state: directory
+        owner: ubuntu
+        group: ubuntu
 
   - name: clone docnow repo
     git:
-      repo: 'https://github.com/docnow/docnow.git'
-      dest: '/opt/docnowapp'
+        repo: 'https://github.com/docnow/docnow.git'
+        dest: '/opt/docnowapp'
 
   - name: deploy app
     command: /usr/local/bin/docker-compose up -d
     args:
-      chdir: '/opt/docnowapp/'
+        chdir: '/opt/docnowapp/'
