@@ -1,5 +1,6 @@
 ---
 vpc_region: 'us-east-1'
+zone: 'us-east-1a'
 keypair: 'akeypair'
 security_groups: 'docnow-app-group'
 instance_type: 't2.micro'
@@ -9,11 +10,13 @@ group_name: 'docnow-test'
 iam_profile: "noaccess"
 ssh_public_key: '/path/to/home/.ssh/id_rsa.pub'
 environment_public_ssh_key_name: 'generateddocnowsshkey'
-docker_compose_version: '1.15.0'
+docker_compose_version: '1.16.1'
 
 aws_access_key: 'yourawsaccesskey'
 aws_secret_key: 'yourawssecretkey'
 
-
-volumes: []
-
+volumes:
+  - device_name: '/dev/sda1'
+    device_type: 'gp2'
+    volume_size: 20
+    delete_on_termination: 'true'
