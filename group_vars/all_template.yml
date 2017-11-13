@@ -1,5 +1,6 @@
 ---
 vpc_region: 'us-east-1'
+zone: 'us-east-1a'
 keypair: 'akeypair'
 security_groups: 'docnow-app-group'
 instance_type: 't2.micro'
