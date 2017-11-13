@@ -4,13 +4,17 @@
     name: '{{ keypair }}'
     region: '{{ vpc_region }}'
     key_material: '{{ item }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
   with_file: ~/.ssh/id_rsa.pub
 
 - name: create docnow security group
   ec2_group:
     name: '{{ security_groups }}'
-    description: 'the docnow ssh group'
     region: '{{ vpc_region }}'
+    description: 'the docnow ssh group'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
     rules:
       - proto: tcp
         from_port: 22
@@ -22,6 +26,8 @@
     region: '{{ vpc_region }}'
     name: 'ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*'
     owner: 099720109477
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
     sort: name
     sort_order: descending
     sort_end: 1
@@ -32,6 +38,8 @@
   ec2:
     region: '{{ vpc_region }}'
     keypair: '{{ keypair }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
     zone: '{{ zone }}'
     group: '{{ security_groups }}'
     image: '{{ ami_result.results[0].ami_id }}'
