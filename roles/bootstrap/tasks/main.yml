@@ -29,3 +29,8 @@
   become: 'yes'
   pip:
     name: docker-compose
+
+- name: enable docker
+  systemd:
+    name: docker
+    enabled: 'yes'
