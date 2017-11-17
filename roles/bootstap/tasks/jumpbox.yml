@@ -1,0 +1,36 @@
+---
+- name: vpc security group | docnow-public-jumpbox
+  ec2_group:
+    name: docnow-public-jumpbox
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    desc: "security group that allows access from dedicated jump box in public network to internal resources"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: '1.2.3.4/32'  # Your private ip
+
+- name: vpc security group | docnow-private-applications
+  ec2_group:
+    name: docnow-private-applications
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    desc: "Network for internal app servers"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        group_id: 'docnow-public-jumpbox'
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        group_id: 'docnow-public-loadbalancer'
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        group_id: 'docnow-public-loadbalancer'
+      - proto: icmp
+        from_port: -1  # icmp type, -1 = any type
+        to_port: -1  # icmp subtype, -1 = any subtype
+        group_id: 'docnow-public-jumbox'
