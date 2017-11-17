@@ -1,0 +1,13 @@
+---
+- name: upload your rsa key
+  ec2_key:
+    name: '{{ keypair }}'
+    region: '{{ region }}'
+    key_material: '{{ item }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+  with_file: ~/.ssh/id_rsa.pub
+
+- include_tasks: loadbalance.yml
+- include_tasks: jumpbox.yml
+- include_tasks: elasticsearch.yml
