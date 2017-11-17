@@ -1,0 +1,19 @@
+---
+- debug: var=ec2
+
+- debug: var=ec2.instances
+
+- debug: var=ec2.instances[0].public_ip
+
+- debug: var=ec2.instances[0].id
+
+- name: Create docnow AMI
+  ec2_ami:
+    region: '{{ vpc_region }}'
+    instance_id: '{{ ec2.instances[0].id }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    name: "docnowapp-image"
+    wait: 'yes'
+    state: present
+  register: ami
