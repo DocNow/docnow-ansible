@@ -4,7 +4,7 @@
     name: docnow-public-jumpbox
     aws_access_key: '{{ aws_access_key }}'
     aws_secret_key: '{{ aws_secret_key }}'
-    desc: "security group that allows access from dedicated jump box in public network to internal resources"
+    description: "security group that allows access from dedicated jump box in public network to internal resources"
     rules:
       - proto: tcp
         from_port: 22
@@ -16,7 +16,7 @@
     name: docnow-private-applications
     aws_access_key: '{{ aws_access_key }}'
     aws_secret_key: '{{ aws_secret_key }}'
-    desc: "Network for internal app servers"
+    description: "Network for internal app servers"
     rules:
       - proto: tcp
         from_port: 22

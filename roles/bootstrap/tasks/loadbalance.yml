@@ -2,7 +2,7 @@
 - name: security groupps | docnowapp-public-loadbalancer
   ec2_group:
     name: docnow-public-loadbalancer
-    desc: "security group for public access"
+    description: "security group for public access"
     aws_access_key: '{{ aws_access_key }}'
     aws_secret_key: '{{ aws_secret_key }}'
     rules:
