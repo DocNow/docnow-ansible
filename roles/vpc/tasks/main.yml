@@ -1,0 +1,16 @@
+---
+- name: Create VPC | new VPC
+  ec2_vpc_net:
+    name: docnow-vpc
+    cidr_block: '{{ vpc_cidr_block }}'
+    region: '{{ region }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    state: present
+  register: docnow_vpc
+
+- name: set vpc in variable
+  set_fact:
+    vpc_id: 'docnow_vpc.vpc.id }}'
+
+- name: Create VPC | create public subnet
