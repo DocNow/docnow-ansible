@@ -23,102 +23,106 @@
     region: '{{ region }}'
     az: '{{ region }}a'
     resource_tags:
-        Name: 'Docnow Public Subnet'
+      Name: 'Docnow Public Subnet'
   register: docnow_public_subnet
 
 - name: set public subnet ID in variable
   set_fact:
-      public_subnet_id: '{{ docnow_public_subnet.subnet.id }}'
+    public_subnet_id: '{{ docnow_public_subnet.subnet.id }}'
 
-- name: Create VPC| create private subnet
+- name: Create VPC | create private subnet
   ec2_vpc_subnet:
-      aws_access_key: '{{ aws_access_key }}'
-      aws_secret_key: '{{ aws_secret_key }}'
-      state: present
-      vpc_id: '{{ vpc_id }}'
-      cidr: '{{ private_subnet_1_cidr }}'
-      region: '{{ region }}'
-      az: '{{ region }}a'
-      resource_tags:
-          Name: 'Docnow Private Subnet'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    state: present
+    vpc_id: '{{ vpc_id }}'
+    cidr: '{{ private_subnet_1_cidr }}'
+    region: '{{ region }}'
+    az: '{{ region }}a'
+    resource_tags:
+      Name: 'Docnow Private Subnet'
   register: docnow_private_subnet
 
-- name: set private subnet ID in variable
+- name: Create VPC | set private subnet ID in variable
   set_fact:
-      private_subnet_id: '{{ docnow_private_subnet.subnet.id }}'
+    private_subnet_id: '{{ docnow_private_subnet.subnet.id }}'
 
 - name: Create VPC | add gateway
   ec2_vpc_igw:
-      aws_access_key: '{{ aws_access_key }}'
-      aws_secret_key: '{{ aws_secret_key }}'
-      vpc_id: '{{ vpc_id }}'
-      region: '{{ region }}'
-      state: present
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    vpc_id: '{{ vpc_id }}'
+    region: '{{ region }}'
+    state: present
   register: docnow_vpc_igw
 
-- name: set internet gateway ID in variable
+- name: Create VPC | set internet gateway ID in variable
   set_fact:
-      igw_id: '{{ docnow_vpc_igw.gateway_id }}'
+    igw_id: '{{ docnow_vpc_igw.gateway_id }}'
 
 - name: Create VPC | Create eip
   ec2_eip:
-      aws_access_key: '{{ aws_access_key }}'
-      aws_secret_key: '{{ aws_secret_key }}'
-      region: '{{ region }}'
-      in_vpc: 'yes'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    region: '{{ region }}'
+    in_vpc: 'yes'
   register: docnow_eip
 
 - name: output of registered IP
   debug:
-      msg: 'Allocated IP in VPC is {{ docnow_eip.public_ip }}'
+    msg: 'Allocated IP in VPC is {{ docnow_eip.public_ip }}'
 
-- name: set allocation ID in variable
+- name: Create VPC | set allocation ID in variable
   set_fact:
-      allocation_id: '{{ docnow_eip.allocation_id }}'
+    allocation_id: '{{ docnow_eip.allocation_id }}'
 
 - name: output of allocation id
   debug:
-      msg: '{{ docnow_eip.allocation_id }}'
+    msg: '{{ docnow_eip.allocation_id }}'
 
 - name: Create VPC | New NAT Gateway
   ec2_vpc_nat_gateway:
-      aws_access_key: '{{ aws_access_key }}'
-      aws_secret_key: '{{ aws_secret_key }}'
-      region: '{{ region }}'
-      state: present
-      subnet_id: '{{ public_subnet_id }}'
-      allocation_id: '{{ allocation_id }}'
-      wait: 'yes'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    region: '{{ region }}'
+    state: present
+    subnet_id: '{{ public_subnet_id }}'
+    allocation_id: '{{ allocation_id }}'
+    wait: 'yes'
   register: docnow_nat_gateway
 
 - name: output of nat gateway
   debug:
-      msg: '{{ docnow_nat_gateway }}'
+    msg: '{{ docnow_nat_gateway }}'
 
 - name: Create VPC | Set up new public route
   ec2_vpc_route_table:
-      aws_access_key: '{{ aws_access_key }}'
-      aws_secret_key: '{{ aws_secret_key }}'
-      region: '{{ region }}'
-      vpc_id: '{{ vpc_id }}'
-      tags:
-          Name: 'Public'
-      subnets:
-          - '{{ public_subnet_id }}'
-      routes:
-          - dest: '0.0.0.0/0'
-            gateway_id: '{{ igw_id }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    region: '{{ region }}'
+    vpc_id: '{{ vpc_id }}'
+    tags:
+      Name: 'Public'
+    subnets:
+      - '{{ public_subnet_id }}'
+    routes:
+      - dest: '0.0.0.0/0'
+        gateway_id: '{{ igw_id }}'
+
+- name: output of private subnet
+  debug:
+    msg: '{{ docnow_nat_gateway }}'
 
 - name: Create VPC | set up new private subnet route
   ec2_vpc_route_table:
-      aws_access_key: '{{ aws_access_key }}'
-      aws_secret_key: '{{ aws_secret_key }}'
-      region: '{{ region }}'
-      vpc_id: '{{ vpc_id }}'
-      tags:
-          Name: 'Private'
-      subnets:
-          - '{{ private_subnet_id }}'
-      routes:
-          - dest: '0.0.0.0/0'
-          - gateway_id: '{{ nat_gateway_id }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    region: '{{ region }}'
+    vpc_id: '{{ vpc_id }}'
+    tags:
+      Name: 'Private'
+    subnets:
+      - '{{ private_subnet_id }}'
+    routes:
+      - dest: '0.0.0.0/0'
+        gateway_id: '{{ docnow_nat_gateway.nat_gateway_id }}'
