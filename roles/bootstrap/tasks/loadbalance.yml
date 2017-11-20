@@ -1,8 +1,10 @@
 ---
 - name: security groupps | docnowapp-public-loadbalancer
   ec2_group:
-    name: docnow-public-loadbalancer
-    description: "security group for public access"
+    name: 'docnow loadbalancer'
+    description: 'docnow loadbalancer group'
+    vpc_id: '{{ vpc_id }}'
+    region: '{{ region }}'
     aws_access_key: '{{ aws_access_key }}'
     aws_secret_key: '{{ aws_secret_key }}'
     rules:
@@ -14,3 +16,12 @@
         from_port: 443
         to_port: 443
         cidr_ip: 0.0.0.0/0
+  register: docnow_public_loadbalancer
+
+- name: output of jumpbox group
+  debug:
+    msg: '{{ docnow_public_loadbalancer }}'
+
+- name: security groups | set loadbalancer group id in variable
+  set_fact:
+    loadbalancer_group: '{{ docnow_public_loadbalancer.group_id }}'
