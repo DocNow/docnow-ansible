@@ -65,7 +65,7 @@
       aws_access_key: '{{ aws_access_key }}'
       aws_secret_key: '{{ aws_secret_key }}'
       region: '{{ region }}'
-      in_vpc: yes
+      in_vpc: 'yes'
   register: docnow_eip
 
 - name: output of registered IP
@@ -88,7 +88,7 @@
       state: present
       subnet_id: '{{ public_subnet_id }}'
       allocation_id: '{{ allocation_id }}'
-      wait: yes
+      wait: 'yes'
   register: docnow_nat_gateway
 
 - name: output of nat gateway
