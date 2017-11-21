@@ -1,9 +1,15 @@
 ---
-vpc_region: 'us-east-1'
+region: 'us-east-1'
 zone: 'us-east-1a'
 keypair: 'akeypair'
 security_groups: 'docnow-app-group'
 instance_type: 't2.micro'
+
+vpc_name: 'docnow vpc'
+vpc_cidr_block: '10.0.0.0/16'
+my_ip: '1.2.3.4'
+public_subnet_1_cidr: '10.0.1.0/24'
+private_subnet_1_cidr: '10.0.2.0/24'
 
 image: 'ami-cd0f5cb6'
 group_name: 'docnow-test'

@@ -1,36 +1,47 @@
 ---
-- name: install minimal python
-  raw: sudo bash -c "test -e /usr/bin/python || (apt install -qy python-minimal aptitude)"
+- name: Security Group |  upload your rsa key
+  ec2_key:
+      name: '{{ keypair }}'
+      region: '{{ region }}'
+      key_material: '{{ item }}'
+      aws_access_key: '{{ aws_access_key }}'
+      aws_secret_key: '{{ aws_secret_key }}'
+  with_file: ~/.ssh/id_rsa.pub
 
-- name: add docker key
-  become: 'yes'
-  apt_key:
-    url: 'https://download.docker.com/linux/ubuntu/gpg'
-    state: present
+- name: Security Group | create SSH group
+  ec2_group:
+      name: 'external ssh access'
+      description: 'external ssh access'
+      vpc_id: '{{ vpc_id }}'
+      region: '{{ region }}'
+      aws_access_key: '{{ aws_access_key }}'
+      aws_secret_key: '{{ aws_secret_key }}'
+      rules:
+          - proto: 'tcp'
+            from_port: '22'
+            to_port: '22'
+            cidr_ip: '{{ my_ip }}/32'
+  register: docnow_main_sg
 
-- name: add docker repository
-  become: 'yes'
-  apt_repository:
-    repo: '{{ docker_repo }}'
-    filename: 'docker'
-    state: present
+- name: Security Group |  set docnow main security group ID
+  set_fact:
+      main_sg_id: '{{ docnow_main_sg.group_id }}'
 
-- name: install docker and pip
-  become: 'yes'
-  apt:
-    name: '{{ item }}'
-    state: present
-    update_cache: 'yes'
-  with_items:
-    - docker-ce
-    - python-pip
+- name: Security Group | create private security Group
+  ec2_group:
+      name: 'private instances security group'
+      description: 'private instances security group'
+      vpc_id: '{{ vpc_id }}'
+      region: '{{ region }}'
+      aws_access_key: '{{ aws_access_key }}'
+      aws_secret_key: '{{ aws_secret_key }}'
+      rules:
+          - proto: 'tcp'
+            from_port: '22'
+            to_port: '22'
+            cidr_ip: '{{ my_ip }}/32'
+            group_id: '{{ main_sg_id }}'
 
-- name: install docker compose
-  become: 'yes'
-  pip:
-    name: docker-compose
-
-- name: enable docker
-  systemd:
-    name: docker
-    enabled: 'yes'
+- include_tasks: loadbalance.yml
+- include_tasks: jumpbox.yml
+- include_tasks: elasticsearch.yml
