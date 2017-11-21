@@ -1,0 +1,6 @@
+---
+- name: Elasticsearch | Install java
+  apt:
+      name: java
+      state: present
+      update_cache: yes

@@ -1,0 +1,15 @@
+---
+- name: Elasticsearch | Install Java
+  include: java.yml
+  tags:
+      - java
+
+- name: Elasticsearch | Install Elasticsearch
+  include: elasticsearch.yml
+  tags:
+      - install
+
+- name: Elasticsearch | Configure Elasticsearch
+  include: elasticsearch-config.yml
+  tags:
+      - config
