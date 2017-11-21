@@ -5,35 +5,31 @@
 - set_fact: force_install=no
 
 - name: Elasticsearch | Install apt-transport-https to support https APT downloads
-  become: yes
+  become: 'yes'
   apt:
     name: apt-transport-https
     state: present
 
 - name: Elasticsearch | Add Elasticsearch repository key
-  become: yes
-  apt_key: 
+  become: 'yes'
+  apt_key:
     url: '{{ es_apt_key }}'
     state: present
 
 - name: Elasticsearch | Add elasticsearch repository
-  become: yes
+  become: 'yes'
   apt_repository:
     repo: '{{ item.repo }}'
     state: '{{ item.state}}'
   with_items:
-    - { repo: '{{ es_apt_url_old }}', state: 'absent' }
-    - { repo: '{{ es_apt_url }}', state: 'present' }
-
-- name: Debian - Include versionlock
-  include: elasticsearch-Debian-version-lock.yml
-  when: es_version_lock
+    - {repo: '{{ es_apt_url_old }}', state: 'absent'}
+    - {repo: '{{ es_apt_url }}', state: 'present'}
 
 - name: Debian - Ensure elasticsearch is installed
-  become: yes
+  become: 'yes'
   apt:
-      name: elasticsearch
-      state: present
-      cache_valid_time: 86400
+    name: elasticsearch
+    state: present
+    cache_valid_time: 86400
   register: debian_elasticsearch_install_from_repo
   notify: restart elasticsearch

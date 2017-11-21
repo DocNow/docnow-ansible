@@ -3,4 +3,4 @@
   apt:
       name: java
       state: present
-      update_cache: yes
+      update_cache: 'yes'
