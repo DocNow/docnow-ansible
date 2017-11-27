@@ -1,4 +1,8 @@
 ---
+- name: output subnet facts
+  debug:
+    msg: '{{ public_subnet_id_fact }}'
+
 - name: Bastion host | Create bastionhost inbound rules.
   ec2_group:
     aws_access_key: '{{ aws_access_key }}'
@@ -30,7 +34,7 @@
     aws_secret_key: '{{ aws_secret_key }}'
     region: '{{ region }}'
     filters:
-      "tag:Name": "{{ ec2_bastionhost.subnet }}"
+      "tag:Name": "{{ vpc_id }}"
   register: vpc_subnet_facts
 
 - name: Bastion host | Create bastionhost instance.
@@ -38,17 +42,12 @@
     aws_access_key: '{{ aws_access_key }}'
     aws_secret_key: '{{ aws_secret_key }}'
     region: '{{ region }}'
-    assign_public_ip: '{{ ec2_bastionhost.assign_public_ip }}'
-    count_tag:
-      Name: '{{ ec2_bastionhost.instance_tags.Name }}'
-    exact_count: '{{ ec2_bastionhost.exact_count }}'
-    group: '{{ ec2_bastionhost.groups }}'
-    instance_tags: "{{ ec2_bastionhost.instance_tags }}"
+    assign_public_ip: 'yes'
     image: '{{ image }}'
     instance_type: '{{ instance_type }}'
     keypair: '{{ keypair }}'
     source_dest_check: 'no'
-    vpc_subnet_id: "{{ vpc_subnet_facts.subnets|map(attribute='id')|list|first }}"
+    vpc_subnet_id: '{{ public_subnet_id_fact }}'
     wait: 'yes'
   register: bastionhost_instance_results
 
@@ -57,28 +56,19 @@
     aws_access_key: '{{ aws_access_key }}'
     aws_secret_key: '{{ aws_secret_key }}'
     region: '{{ region }}'
-    description: "{{ securitygroups_bastionhost_internal.tags.Name }} SSH rules."
-    name: "{{ securitygroups_bastionhost_internal.name }}"
+    description: 'bastion SSH rules'
+    name: 'ssh bastion inbound internal'
     rules:
       - proto: tcp
         from_port: 22
         to_port: 22
         cidr_ip: '{{ my_ip }}/32'
-    vpc_id: '{{ vpc_id_fact }}'
+    vpc_id: '{{ vpc_id }}'
   register: bastionhost_inbound_internal_results
-
-- name: Tag bastionhost SSH inbound rules for internal instances
-  ec2_tag:
-    aws_access_key: '{{ aws_access_key }}'
-    aws_secret_key: '{{ aws_secret_key }}'
-    region: '{{ region }}'
-    resource: '{{ bastionhost_inbound_internal_results.group_id }}'
-    state: present
-    tags: '{{ securitygroups_bastionhost_internal.tags }}'
 
 - name: Bastion host | Set public DNS fact.
   set_fact:
-    bastion_public_dns_name: '{{ bastionhost_instance_results.tagged_instances.0.public_dns_name }}'
+    bastion_public_dns_name: '{{ bastionhost_instance_results.0.public_dns_name }}'
 
 - name: Bastion host | Print public IP address.
   debug:
