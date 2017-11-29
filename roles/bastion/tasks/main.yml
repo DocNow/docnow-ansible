@@ -66,10 +66,6 @@
     vpc_id: '{{ vpc_id }}'
   register: bastionhost_inbound_internal_results
 
-- name: Bastion host | Set public DNS fact.
-  set_fact:
-    bastion_public_dns_name: '{{ bastionhost_instance_results.0.public_dns_name }}'
-
-- name: Bastion host | Print public IP address.
+- name: output bastion public dns
   debug:
-    msg: 'bastionhost public DNS: {{ bastion_public_dns_name }}'
+    msg: '{{ bastionhost_instance_results }}'
