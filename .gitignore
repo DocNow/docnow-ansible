@@ -2,3 +2,4 @@
 all.yml
 aws_keys
 .terraform
+terraform.tfstate*
