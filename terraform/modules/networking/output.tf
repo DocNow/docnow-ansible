@@ -13,3 +13,7 @@ output "private_subnet_id" {
 output "default_sg_id" {
   value = "${aws_security_group.default.id}"
 }
+
+output "bastion.hostname" {
+  value = "${aws_instance.bastion.public_dns}"
+}
