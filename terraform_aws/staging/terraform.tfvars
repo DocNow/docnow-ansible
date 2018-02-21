@@ -1,5 +1,5 @@
 environment        = "staging"
-key_name           = "test"
+key_name           = "docnow"
 region             = "us-east-1"
 availability_zone  = "us-east-1a"
 
