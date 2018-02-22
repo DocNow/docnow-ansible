@@ -1,0 +1,12 @@
+---
+- name: Provision Elastic
+  hosts: elastic
+
+  roles:
+    - role: elastic
+
+- name: Provision Docnow
+  hosts: docnow
+
+  roles:
+    - role: docnow
