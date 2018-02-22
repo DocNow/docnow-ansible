@@ -1,0 +1,41 @@
+---
+- include: java.yml
+
+- name: check-set-parameters
+  include: elastic-parameters.yml
+  tags:
+      - always
+
+- include: elasticsearch.yml
+  tags:
+      - install
+
+- include: elasticsearch-config.yml
+  tags:
+      - config
+
+- include: elasticsearch-scripts.yml
+  when: es_scripts
+  tags:
+      - scripts
+
+- meta: flush_handlers
+
+- name: Wait for elasticsearch to startup
+  wait_for: host={{es_api_host}} port={{es_api_port}} delay=5 connect_timeout=1
+  when: es_restarted is defined and es_restarted.changed and es_start_service
+
+- set_fact: manage_native_realm=false
+
+
+# If playbook runs too fast, Native commands could fail as the Native Realm is not yet up
+- name: Wait 15 seconds for the Native Relm to come up
+  pause: seconds=15
+  when: manage_native_realm
+
+# Templates done after restart - handled by flushing the handlers. e.g. suppose user removes security on a running node and doesn't specify es_api_basic_auth_username and es_api_basic_auth_password.  The templates will subsequently not be removed if we don't wait for the node to restart.
+# We also do after the native realm to ensure any changes are applied here first and its denf up.
+- include: elasticsearch-template.yml
+  when: es_templates
+  tags:
+      - templates

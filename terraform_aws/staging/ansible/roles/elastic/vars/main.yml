@@ -1,0 +1,7 @@
+---
+default_file: '/etc/default/elasticsearch'
+es_home: '/usr/share/elasticsearch'
+es_conf_dir: '/etc/elasticsearch'
+sysd_script: '/usr/lib/systemd/system/elasticsearch.service'
+es_package_url: 'https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch'
+es_heap_size: 1g

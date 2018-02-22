@@ -1,0 +1,21 @@
+---
+- name: Include optional user and group creation.
+  when: (es_user_id is defined) and (es_group_id is defined)
+  include: elasticsearch-optional-user.yml
+
+- name: Add Elasticsearch repository key
+  apt_key:
+    url: '{{ es_apt_key }}'
+    state: present
+
+- name: Add Elasticsearch repository
+  apt_repository:
+    repo: '{{ es_apt_url }}'
+    state: present
+
+- name: Ensure Elasticsearch is installed
+  apt:
+    name: elasticsearch
+    state: present
+    cache_valid_time: 86400
+  notify: restart elasticsearch
