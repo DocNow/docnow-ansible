@@ -1,0 +1,14 @@
+---
+- include: install_docker.yml
+
+- name: clone docnow repo
+  become: 'yes'
+  git:
+    repo: 'https://github.com/docnow/docnow.git'
+    dest: '/opt/docnowapp'
+
+- name: deploy app
+  become: 'yes'
+  command: /usr/local/bin/docker-compose up -d
+  args:
+    chdir: '/opt/docnowapp/'

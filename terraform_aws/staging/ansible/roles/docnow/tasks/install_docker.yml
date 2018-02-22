@@ -1,0 +1,35 @@
+---
+- name: add ubuntu repo
+  apt_key:
+      url: 'https://download.docker.com/linux/ubuntu/gpg'
+      state: present
+      id: '9DC858229FC7DD38854AE2D88D81803C0EBFCD88'
+
+- name: add docker CE repository
+  apt_repository:
+      repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
+      state: present
+
+- name: install docker CE and pip
+  apt:
+      name: '{{ item }}'
+      state: present
+      update_cache: 'yes'
+  with_items:
+      - docker-ce
+      - python-pip
+
+- name: add ubuntu user to docker
+  user:
+      name: ubuntu
+      groups: docker
+      append: 'yes'
+
+- name: enable docker to start on boot
+  systemd:
+      name: docker
+      enabled: 'yes'
+
+- name: install docker compose
+  pip:
+      name: docker-compose
