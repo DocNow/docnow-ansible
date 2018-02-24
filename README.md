@@ -12,10 +12,7 @@ The goal of this repository is to set up
 
 You will need to have [Terraform](https://terraform.io) installed on your
 computer. In addition you will need to have [Ansible](https://ansible.com) installed. It is
-recommended to use `pip` as your installer. In addition to ansible the Python
-boto package will need to be installed. Both can be installed with the following
-step
-
+recommended to use `pip` as your installer.
 
 ### Configuration
 
