@@ -2,7 +2,7 @@ module "elastic" {
   source              = "../modules/elastic"
   elastic_instance_count  = "${var.elastic_instance_count}"
   region              = "${var.region}"
-  instance_type       = "t2.micro"
+  instance_type       = "t2.small"
   private_subnet_id   = "${module.networking.private_subnet_id}"
   public_subnet_id    = "${module.networking.public_subnet_id}"
   vpc_sg_id           = "${module.networking.default_sg_id}"
