@@ -21,6 +21,8 @@ step
 
 *AWS*
 
+From your AWS account create access keys that you will need to create AWS
+services. Enter the generated keys on a file named `~/.aws/credentials`
 
 ```
 cat ~/.aws/credentials
@@ -48,38 +50,47 @@ ssh-add -K docnow_key
 
 **Configuration Options**
 
-
-
-
 ### How it works
 
-When all this is done run 
+When all this is done create your AWS infrastructure from the `staging`
+directory
+
+```
+terraform get
+```
+
+which will build your docnow, elastic, and networking modules
+
+```
+terraform plan
+```
+
+where you will be prompted for the number of VMs you plan to have
+
+```
+terraform apply
+```
+
+Which repeats the same step as plan but creates your infrastructure. The process
+will complete with information we will need for our ansible playbook.
+
+The output for
+
+* `docnow_ip` and `elastic_ip` will be added to the `hosts` file
+* `bastion_host` will be appended to your `~/.ssh/config` file
+* `elb_hostname` will be the URI to point to
+
+The repo has examples of both of the above
+
+Then run the playbook to complete the application
 
 ```
 ansible-playbook ansible/deploy.yml -b
 ```
 
-the 
-
-* ansible-playbook is the command
-* the `e` flag allows us to pass the variables. You can also set these as
-  environment variables in your shell using `export` or other
-* the `vv` allows us to at least get the IP address of the AWS create EC2 instance
-  where we will log in
-* the `u` flag passes the ubuntu user that is used by the Amazon AMI
-* the `b` flag gives elevated privileges to the remote user
-
 When this is done your playbook will list the IP of the completed end point to
 log into. Below is an example of a completed play.
 
-```
-PLAY RECAP ******************************************************************************************************************************************************************************************************************************************************************
-54.235.55.73               : ok=13   changed=10   unreachable=0    failed=0
-localhost                  : ok=9    changed=3    unreachable=0    failed=0
-```
-
-In that example pointing your browser to 
-
-http://54.235.55.73:3000
+In that example pointing your browser to the `elb_hostname` variable
 
 will lead you to your application.
