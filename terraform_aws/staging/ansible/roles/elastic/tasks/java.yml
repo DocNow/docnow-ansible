@@ -1,6 +1,0 @@
----
-- name: Elasticsearch | Install java
-  apt:
-      name: openjdk-9-jdk-headless
-      state: present
-      update_cache: 'yes'
