@@ -1,9 +1,0 @@
----
-- name: terminate old instances
-  ec2:
-    instance_ids: '{{ ec2_id }}'
-    region: '{{ vpc_region }}'
-    aws_access_key: '{{ aws_access_key }}'
-    aws_secret_key: '{{ aws_secret_key }}'
-    state: absent
-    wait: 'yes'
