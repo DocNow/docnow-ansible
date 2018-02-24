@@ -80,7 +80,7 @@ The output for
 * `bastion_host` will be appended to your `~/.ssh/config` file
 * `elb_hostname` will be the URI to point to
 
-The repo has examples of both of the above
+The repo has examples of `ssh_config` and `hosts_example` above
 
 Then run the playbook to complete the application
 

@@ -1,1 +1,5 @@
-staging/terraform.tfstate*
+terraform_aws/staging/terraform.tfstate*
+terraform_aws/staging/hosts
+.terraform
+docnow_key
+docnow_key.pub
