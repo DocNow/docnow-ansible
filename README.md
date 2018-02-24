@@ -10,34 +10,17 @@ The goal of this repository is to set up
 
 ### Prerequisites
 
-You will need to have [Ansible](https://ansible.com) installed. It is
+You will need to have [Terraform](https://terraform.io) installed on your
+computer. In addition you will need to have [Ansible](https://ansible.com) installed. It is
 recommended to use `pip` as your installer. In addition to ansible the Python
 boto package will need to be installed. Both can be installed with the following
 step
 
-```
-pip install -r requirements.txt
-```
-
-On MacOS the following will need to be added or the boto library will fail to
-work properly
-
-```
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages
-```
 
 ### Configuration
 
 *AWS*
 
-When you clone this repo it expects you to have an [Amazon EC2 Key
-Pair](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
-which you will need to add to your account. This information will be used in the
-untracked `group_vars/all.yml` file which we have an example of in the
-`group_vars/all_template.yml` file. 
-
-Create a file under the `~/.aws/` directory named `credentials`. The contents of
-this file will contain the keypair and look like this
 
 ```
 cat ~/.aws/credentials
@@ -51,28 +34,21 @@ instances
 
 *OpenSSH*
 
-In order to log into your EC2 instance this playbook will upload your ssh keys
+In order to log into your EC2 instance terraform will upload your ssh keys
 to your AWS. To generate your keys
 
 ```
-ssh-keygen -t rsa -f ~/.ssh/id_docnow
+ssh-keygen -t rsa -C "docnow_key" -f ./docnow_key
+```
+then add them to your sessions with 
+
+```
+ssh-add -K docnow_key
 ```
 
 **Configuration Options**
 
-* vpc_region will be your AWS region
-* instance_type will be the size of EC2 instance (we default to the smallest
-  free tier one)
-* ssh_public_key will be the key you generated above to log into your EC2 instance
-* aws_access_key and aws_secret_key are the keys you just created above
 
-Make a copy of `group_vars/all_template.yml`
-
-```
-cp group_vars/all_template.yml group_vars/all.yml
-```
-
-and make the appropriate changes
 
 
 ### How it works
@@ -80,7 +56,7 @@ and make the appropriate changes
 When all this is done run 
 
 ```
-ansible-playbook -e 'aws_secret_key='randomstringofcharactersgeneratedabove -e 'aws_access_key=GENERATEDAWSKEYABOVE' -vv provision.yml -u ubuntu -b
+ansible-playbook ansible/deploy.yml -b
 ```
 
 the 
