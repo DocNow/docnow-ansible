@@ -52,8 +52,9 @@ ssh-add -K docnow_key
 
 ### How it works
 
-When all this is done create your AWS infrastructure from the `staging`
-directory
+When all this is done create your AWS infrastructure from the `staging` or
+`production` directory under the `terraform_*` environment you would like to
+build
 
 ```
 terraform get
