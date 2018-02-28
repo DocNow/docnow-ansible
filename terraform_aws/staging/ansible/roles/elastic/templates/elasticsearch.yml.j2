@@ -53,7 +53,7 @@ path.logs: /var/log/elasticsearch
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #
-#network.host: 192.168.0.1
+network.host: '{{ ansible_eth0.ipv4.address }}'
 #
 # Set a custom port for HTTP:
 #
