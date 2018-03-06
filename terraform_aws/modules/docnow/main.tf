@@ -98,7 +98,19 @@ resource "aws_elb" "docnow" {
     lb_port           = 80
     lb_protocol       = "http"
   }
+
+  health_check {
+  healthy_threshold = 2
+  unhealthy_threshold = 2
+  timeout = 3
+  target = "HTTP:3000/"
+  interval = 30
+  }
+
   instances = ["${aws_instance.docnow.*.id}"]
+  connection_draining = true
+  idle_timeout = 400
+  connection_draining_timeout = 400
 
   tags {
     Environment = "${var.environment}"
