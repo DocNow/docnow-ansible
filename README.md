@@ -45,6 +45,9 @@ then add them to your sessions with
 ssh-add -K docnow_key
 ```
 
+Copy `hosts_example` to `hosts` in the `staging` directory and then copy
+`docker-compose.yml-example` to `docker-compose.yml` in the docnow ansible role
+
 **Configuration Options**
 
 ### How it works
