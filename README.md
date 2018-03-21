@@ -54,10 +54,16 @@ When all this is done create your AWS infrastructure from the `staging` or
 build
 
 ```
+terraform init
+```
+
+This will initialize the repo and pull the correct terraform plugins
+
+```
 terraform get
 ```
 
-which will build your docnow, elastic, and networking modules
+This will build your docnow, elastic, and networking modules
 
 ```
 terraform plan
