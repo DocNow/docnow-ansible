@@ -12,8 +12,8 @@ resource "aws_security_group" "docnow_server_sg" {
   }
 
   ingress {
-    from_port = 3000
-    to_port   = 3000
+    from_port = 80
+    to_port   = 80
     protocol  = "tcp"
     cidr_blocks = ["${var.vpc_cidr_block}"]
   }
@@ -44,8 +44,8 @@ resource "aws_security_group" "docnow_inbound_sg" {
   vpc_id      = "${var.vpc_id}"
 
   ingress {
-    from_port   = 3000
-    to_port     = 3000
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -93,7 +93,7 @@ resource "aws_elb" "docnow" {
   security_groups = ["${aws_security_group.docnow_inbound_sg.id}"]
 
   listener {
-    instance_port     = 3000
+    instance_port     = 80
     instance_protocol = "http"
     lb_port           = 80
     lb_protocol       = "http"
@@ -101,10 +101,10 @@ resource "aws_elb" "docnow" {
 
   health_check {
   healthy_threshold = 2
-  unhealthy_threshold = 2
+  unhealthy_threshold = 10
   timeout = 3
-  target = "HTTP:3000/"
-  interval = 30
+  target = "HTTP:80/"
+  interval = 180
   }
 
   instances = ["${aws_instance.docnow.*.id}"]

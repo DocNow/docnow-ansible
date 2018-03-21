@@ -17,3 +17,5 @@
   command: /usr/local/bin/docker-compose up -d
   args:
     chdir: '/opt/docnowapp/'
+
+- include: install_nginx.yml
