@@ -101,10 +101,10 @@ resource "aws_elb" "docnow" {
 
   health_check {
   healthy_threshold = 2
-  unhealthy_threshold = 2
+  unhealthy_threshold = 10
   timeout = 3
   target = "HTTP:80/"
-  interval = 30
+  interval = 180
   }
 
   instances = ["${aws_instance.docnow.*.id}"]
