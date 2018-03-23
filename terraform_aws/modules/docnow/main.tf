@@ -101,7 +101,7 @@ resource "aws_elb" "docnow" {
 
   health_check {
   healthy_threshold = 2
-  unhealthy_threshold = 10
+  unhealthy_threshold = 8
   timeout = 3
   target = "HTTP:80/"
   interval = 180
