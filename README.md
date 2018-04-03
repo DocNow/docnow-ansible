@@ -42,8 +42,8 @@ brew install terraform ansible
 
 You will need a [Docker Host](https://docker.com) and [Docker
 compose](https://docs.docker.com/compose/) installed on the host. It is
-recommended that you set up a reverser proxy web server ideally with TLS. Your
-reverse proxy server will listen on port 3000 for the docnow up
+recommended that you set up a reverse proxy web server ideally with TLS. Your
+reverse proxy server will listen on port 3000 for the docnow application
 
 Clone the docnow repo
 
