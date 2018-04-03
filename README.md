@@ -16,6 +16,26 @@ recommended to use `pip` as your installer.
 
 ### Configuration
 
+*Your own infrastructure*
+
+You will need a [Docker Host](https://docker.com) and [Docker
+compose](https://docs.docker.com/compose/) installed on the host. You will need
+to set up a reverse proxy web server ideally with TLS. Your webserver will
+listen on port 3000 for the docnow application
+
+Clone the docnow repo
+
+```
+git clone https://github.com/DocNow/docnow.git
+```
+From the cloned repo review the `docker-compose.yml` file and adjust
+accordingly. Specifically determine where you plan to host your elasticsearch
+and redis. Then run
+
+```
+docker-compose up -d
+```
+
 *AWS*
 
 From your AWS account create access keys that you will need to create AWS
