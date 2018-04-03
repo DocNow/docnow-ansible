@@ -10,18 +10,40 @@ The goal of this repository is to set up
 
 ### Prerequisites
 
-You will need to have [Terraform](https://terraform.io) installed on your
-computer. In addition you will need to have [Ansible](https://ansible.com) installed. It is
-recommended to use `pip` as your installer.
+Install [Terraform](https://terraform.io) on your
+computer. In addition you will need to have [Ansible](https://ansible.com) installed. We have tested this on Ubuntu Xenial and MacOS and the steps for that are
+
+**On Ubuntu**
+
+```
+cd ~
+mkdir bin
+cd bin
+wget https://releases.hashicorp.com/terraform/0.11.5/terraform_0.11.5_linux_amd64.zip
+unzip terraform_0.11.5_linux_amd64.zip
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible
+```
+
+Your versions may differ from the terraform examples presented above
+
+**On MacOS**
+
+```
+brew install terraform ansible
+```
 
 ### Configuration
 
 *Your own infrastructure*
 
 You will need a [Docker Host](https://docker.com) and [Docker
-compose](https://docs.docker.com/compose/) installed on the host. You will need
-to set up a reverse proxy web server ideally with TLS. Your webserver will
-listen on port 3000 for the docnow application
+compose](https://docs.docker.com/compose/) installed on the host. It is
+recommended that you set up a reverser proxy web server ideally with TLS. Your
+reverse proxy server will listen on port 3000 for the docnow up
 
 Clone the docnow repo
 
@@ -122,3 +144,7 @@ log into. Below is an example of a completed play.
 In that example pointing your browser to the `elb_hostname` variable
 
 will lead you to your application.
+
+#### TO DO
+* How to set up Let's Encrypt on LB
+* How to deploy on DigitalOcean and Vultr
