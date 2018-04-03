@@ -38,7 +38,7 @@ brew install terraform ansible
 
 ### Configuration
 
-*Your own infrastructure*
+**Your own infrastructure**
 
 You will need a [Docker Host](https://docker.com) and [Docker
 compose](https://docs.docker.com/compose/) installed on the host. It is
@@ -58,7 +58,7 @@ and redis. Then run
 docker-compose up -d
 ```
 
-*AWS*
+**AWS**
 
 From your AWS account create access keys that you will need to create AWS
 services. Enter the generated keys on a file named `~/.aws/credentials`
@@ -90,7 +90,7 @@ ssh-add -K docnow_key
 Copy `hosts_example` to `hosts` in the `staging` directory and then copy
 `docker-compose.yml-example` to `docker-compose.yml` in the docnow ansible role
 
-**Configuration Options**
+## Configuration Options
 
 ### How it works
 
