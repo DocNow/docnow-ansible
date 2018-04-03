@@ -15,7 +15,7 @@
       name: '{{ item }}'
       state: present
       update_cache: 'yes'
-  with_items:
+  loop:
       - docker-ce
       - python-pip
 
