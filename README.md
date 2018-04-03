@@ -10,13 +10,55 @@ The goal of this repository is to set up
 
 ### Prerequisites
 
-You will need to have [Terraform](https://terraform.io) installed on your
-computer. In addition you will need to have [Ansible](https://ansible.com) installed. It is
-recommended to use `pip` as your installer.
+Install [Terraform](https://terraform.io) on your
+computer. In addition you will need to have [Ansible](https://ansible.com) installed. We have tested this on Ubuntu Xenial and MacOS and the steps for that are
+
+**On Ubuntu**
+
+```
+cd ~
+mkdir bin
+cd bin
+wget https://releases.hashicorp.com/terraform/0.11.5/terraform_0.11.5_linux_amd64.zip
+unzip terraform_0.11.5_linux_amd64.zip
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible
+```
+
+Your versions may differ from the terraform examples presented above
+
+**On MacOS**
+
+```
+brew install terraform ansible
+```
 
 ### Configuration
 
-*AWS*
+**Your own infrastructure**
+
+You will need a [Docker Host](https://docker.com) and [Docker
+compose](https://docs.docker.com/compose/) installed on the host. It is
+recommended that you set up a reverse proxy web server ideally with TLS. Your
+reverse proxy server will listen on port 3000 for the docnow application
+
+Clone the docnow repo
+
+```
+git clone https://github.com/DocNow/docnow.git
+```
+From the cloned repo review the `docker-compose.yml` file and adjust
+accordingly. Specifically determine where you plan to host your elasticsearch
+and redis. Then run
+
+```
+docker-compose up -d
+```
+
+**AWS**
 
 From your AWS account create access keys that you will need to create AWS
 services. Enter the generated keys on a file named `~/.aws/credentials`
@@ -48,7 +90,7 @@ ssh-add -K docnow_key
 Copy `hosts_example` to `hosts` in the `staging` directory and then copy
 `docker-compose.yml-example` to `docker-compose.yml` in the docnow ansible role
 
-**Configuration Options**
+## Configuration Options
 
 ### How it works
 
@@ -102,3 +144,7 @@ log into. Below is an example of a completed play.
 In that example pointing your browser to the `elb_hostname` variable
 
 will lead you to your application.
+
+#### TO DO
+* How to set up Let's Encrypt on LB
+* How to deploy on DigitalOcean and Vultr
