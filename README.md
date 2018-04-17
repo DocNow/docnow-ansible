@@ -1,5 +1,5 @@
-# docnow-ansible
-Ansible Installer for Yet Another Docnow App
+# Install the docnow application
+Ansible Installer the Docnow App
 
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
 
@@ -10,8 +10,9 @@ The goal of this repository is to set up
 
 ### Prerequisites
 
-Install [Terraform](https://terraform.io) on your
-computer. In addition you will need to have [Ansible](https://ansible.com) installed. We have tested this on Ubuntu Xenial and MacOS and the steps for that are
+* You must have [Terraform](https://www.terraform.io/) installed on your computer. 
+* You must have [Ansible](https://ansible.com/) installed on your computer. 
+* You must have an [Amazon Web Services (AWS) account](http://aws.amazon.com/).
 
 **On Ubuntu**
 
@@ -28,7 +29,7 @@ sudo apt-get update
 sudo apt-get install ansible
 ```
 
-Your versions may differ from the terraform examples presented above
+Your versions may differ from the terraform examples presented above. Please note that this code was written for Terraform 0.11.7
 
 **On MacOS**
 
@@ -36,11 +37,13 @@ Your versions may differ from the terraform examples presented above
 brew install terraform ansible
 ```
 
+Your versions may differ from the terraform examples presented above. Please note that this code was written for Terraform 0.11.7
+
 ### Configuration
 
 **Your own infrastructure**
 
-You will need a [Docker Host](https://docker.com) and [Docker
+If you intend to run this on your own infrastructure, you will need a [Docker Host](https://docker.com) and [Docker
 compose](https://docs.docker.com/compose/) installed on the host. It is
 recommended that you set up a reverse proxy web server ideally with TLS. Your
 reverse proxy server will listen on port 3000 for the docnow application
@@ -60,7 +63,15 @@ docker-compose up -d
 
 **AWS**
 
-From your AWS account create access keys that you will need to create AWS
+**Please note that this example will deploy real resources into your AWS account. We have made every effort to ensure 
+all the resources qualify for the [AWS Free Tier](https://aws.amazon.com/free/), but we are not responsible for any
+charges you may incur.** 
+
+Configure your [AWS access 
+keys](http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) as 
+environment variables:
+
+From your AWS access keys above you will need to create AWS
 services. Enter the generated keys on a file named `~/.aws/credentials`
 
 ```
