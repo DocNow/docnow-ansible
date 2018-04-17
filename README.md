@@ -63,7 +63,15 @@ docker-compose up -d
 
 **AWS**
 
-From your AWS account create access keys that you will need to create AWS
+**Please note that this example will deploy real resources into your AWS account. We have made every effort to ensure 
+all the resources qualify for the [AWS Free Tier](https://aws.amazon.com/free/), but we are not responsible for any
+charges you may incur.** 
+
+Configure your [AWS access 
+keys](http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) as 
+environment variables:
+
+From your AWS access keys above you will need to create AWS
 services. Enter the generated keys on a file named `~/.aws/credentials`
 
 ```
