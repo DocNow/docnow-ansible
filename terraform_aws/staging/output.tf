@@ -13,3 +13,7 @@ output "docnow_ip" {
 output "elastic_ip" {
   value = "${module.elastic.elastic.ip}"
 }
+
+output "redis_ip" {
+  value = "${module.redis.elastic.ip}"
+}

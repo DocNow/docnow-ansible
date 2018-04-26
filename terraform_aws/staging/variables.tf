@@ -38,3 +38,7 @@ variable "elastic_instance_count" {
   description = "The total of elastic instances to run"
 }
 
+# redis nodes
+variable "redis_instance_count" {
+  description = "The total of redis instances to run"
+}
