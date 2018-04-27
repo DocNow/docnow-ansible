@@ -1,7 +1,7 @@
 ---
 redis_conf_path: '/etc/redis/redis.conf'
 redis_port: 6379
-redis_bind_interface: '{{ ansible_default_ipv4.interface }}'
+redis_bind_interface: '{{ ansible_eth0.ipv4.address }}'
 redis_unixsocket: ''
 redis_timeout: 300
 
@@ -14,7 +14,7 @@ redis_databases: 16
 redis_save:
   - 900 1
   - 300 10
-  - 60 10000
+  - 60 2048
 
 redis_rdbcompression: 'yes'
 redis_dbfilename: 'dump.rdb'
