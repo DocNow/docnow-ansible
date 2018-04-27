@@ -1,12 +1,15 @@
 ---
 - name: Provision Elastic
   hosts: elastic
-
   roles:
     - role: elastic
 
+- name: Provision Redis
+  hosts: redis
+  roles:
+    - role: redis
+
 - name: Provision Docnow
   hosts: docnow
-
   roles:
     - role: docnow
