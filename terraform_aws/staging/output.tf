@@ -15,5 +15,5 @@ output "elastic_ip" {
 }
 
 output "redis_ip" {
-  value = "${module.redis.elastic.ip}"
+  value = "${module.redis.redis.ip}"
 }
