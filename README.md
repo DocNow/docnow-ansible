@@ -136,8 +136,8 @@ will complete with information we will need for our ansible playbook.
 
 The output for
 
-* `docnow_ip` and `elastic_ip` will be added to the `hosts` file
-* `elastic_ip` will also be added to the `docker-compose.yml` file
+* `docnow_ip`, `redis_ip`, and `elastic_ip` will be added to the `hosts` file
+* `elastic_ip` and `redis_ip` will also be added to the `docker-compose.yml` file
 * `bastion_host` will be appended to your `~/.ssh/config` file
 * `elb_hostname` will be the URI to point to
 
