@@ -8,6 +8,20 @@ Ansible Installer the Docnow App
 The goal of this repository is to set up
 [docnow/docnow](https://github.com/docnow/docnow) tool.
 
+## Status of this Repo
+
+### Components
+
+- [ ] How to connect to Redis instance
+- [ ] Copy all staging modules into and add  production
+- [ ] Create Amazon DNS module
+- [ ] Create Let's Encrypt module
+
+### Critical cleanup and review
+
+- [ ] How to run this repo as a user with Microsoft Windows (Packer)
+- [ ] Improve documentation to include production
+
 ### Prerequisites
 
 * You must have [Terraform](https://www.terraform.io/) installed on your computer. 
