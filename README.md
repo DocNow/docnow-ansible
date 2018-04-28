@@ -22,6 +22,10 @@ The goal of this repository is to set up
 - [ ] How to run this repo as a user with Microsoft Windows (Packer)
 - [ ] Improve documentation to include production
 
+### Non-critical improvements
+
+- [ ] Make it more DRY on the modules
+
 ### Prerequisites
 
 * You must have [Terraform](https://www.terraform.io/) installed on your computer. 
