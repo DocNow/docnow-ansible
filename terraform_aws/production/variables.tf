@@ -42,3 +42,20 @@ variable "elastic_instance_count" {
 variable "redis_instance_count" {
   description = "The total of redis instances to run"
 }
+# Let's Encrypt Account Registration Config
+# -- Production
+# variable "docnow_acme_server_url"          { default = "https://acme.api.letsencrypt.org/directory"}
+# variable "docnow_acme_registration_email"  { default = "your-email@your-company.com" }
+# -- Staging
+variable "docnow_acme_server_url"          { default = "https://acme-staging.api.letsencrypt.org/directory"}
+variable "docnow_acme_registration_email"  { default = "your-email@example.com" }
+
+# Domain against which certificate will be created
+# i.e. letsencrypt-terraform.example.com
+variable "docnow_domain_name"              { default = "pretendco.com"}
+variable "docnow_domain_subdomain"         { default = "letsencrypt-terraform"}
+
+# Leave blank here, supply securely at runtime 
+variable "docnow_acme_challenge_aws_access_key_id"     { }
+variable "docnow_acme_challenge_aws_secret_access_key" { }
+variable "docnow_acme_challenge_aws_region"            { }
