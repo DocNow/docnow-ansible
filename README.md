@@ -169,7 +169,3 @@ log into. Below is an example of a completed play.
 In that example pointing your browser to the `elb_hostname` variable
 
 will lead you to your application.
-
-#### TO DO
-* How to set up Let's Encrypt on LB
-* How to deploy on DigitalOcean and Vultr
