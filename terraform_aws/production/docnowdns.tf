@@ -29,7 +29,7 @@ module "acme-cert" {
 }
 
 module "aws-docnow-env" {
-    source = "../modules/aws-docnow-environment"
+    source = "../modules/docnow-prod-environment"
     docnow_env_nginx_count            = "2"
     docnow_env_cert_body              = "${module.acme-cert.certificate_pem}"      
     docnow_env_cert_chain             = "${module.acme-cert.certificate_issuer_pem}" 
