@@ -1,0 +1,8 @@
+Host 10.*.*.*
+    User ubuntu
+    IdentityFile { path to docnow_key }
+    ProxyCommand ssh -q -W %h:%p  { output of bastion host } # -q
+Host { output of bastion host }
+    User ubuntu
+    IdentityFile { path to docnow_key }
+    ForwardAgent yes
