@@ -1,12 +1,12 @@
-## On Ubuntu
+## On CentOS
 
-If you intend to run Docnow on Ubuntu (tested on Bionic)
+If you intend to run Docnow on CentOS (tested on 7)
 
 ### Prerequisites
 
 * At least 8GB memory
 * Git
-* Install [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [Docker compose](https://docs.docker.com/compose/install/)
+* Install [Docker](https://docs.docker.com/install/linux/docker-ce/centos/) and [Docker compose](https://docs.docker.com/compose/install/)
 * (optional) reverse proxy web server ideally with TLS. Your reverse proxy server will listen on port 3000 for the docnow application
 
 
@@ -14,7 +14,7 @@ If you intend to run Docnow on Ubuntu (tested on Bionic)
 
 
 ```bash
-sudo apt -y install git
+sudo yum -y install git
 ```
 
 To install Docnow from the repository, clone the repository locally:

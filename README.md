@@ -16,6 +16,10 @@ The links below will lead you to documentation for the various ways you may inst
 
 [Follow instructions here](awsREADME.md)
 
+**On CentOS**
+
+[Follow instructions here](centOSREADME.md)
+
 **On Digitalocean (TO DO)**
 
 [Follow instructions here](doREADME.md)
