@@ -10,17 +10,17 @@ The goal of this repository is to set up
 
 ### Prerequisites
 
-* You must have [Ansible](https://ansible.com/) installed on your computer. The links below will lead you to documentation for various providers which may require additional software installed.
+The links below will lead you to documentation for the various ways you may install the DocNow App which may require additional software installed.
 
-**On AWS**
+**On AWS (TO DO)**
 
 [Follow instructions here](awsREADME.md)
 
-**On Digitalocean**
+**On Digitalocean (TO DO)**
 
 [Follow instructions here](doREADME.md)
 
-**On Google Cloud**
+**On Google Cloud (TO DO)**
 
 [Follow instructions here](gcpREADME.md)
 
@@ -32,7 +32,7 @@ The goal of this repository is to set up
 
 [Follow instructions here](mswindowsREADME.md)
 
-**On Scaleway**
+**On Scaleway (TO DO)**
 
 [Follow instructions here](scalewayREADME.md)
 
@@ -40,6 +40,6 @@ The goal of this repository is to set up
 
 [Follow instructions here](ubuntuREADME.md)
 
-**On Vultr**
+**On Vultr (TO DO)**
 
 [Follow instructions here](vultrREADME.md)
