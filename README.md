@@ -10,7 +10,7 @@ The goal of this repository is to set up
 
 ### Prerequisites
 
-* You must have [Ansible](https://ansible.com/) installed on your computer. 
+* You must have [Ansible](https://ansible.com/) installed on your computer. The links below will lead you to documentation for various providers which may require additional software installed.
 
 **On AWS**
 
@@ -30,7 +30,7 @@ The goal of this repository is to set up
 
 **On Microsoft Windows**
 
-[Follow instructions here](macOSREADME.md)
+[Follow instructions here](mswindowsREADME.md)
 
 **On Scaleway**
 
