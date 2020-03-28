@@ -4,7 +4,8 @@ If you intend to run Docnow on Microsoft Windows
 
 ### Prerequisites
 
-* At least 8GB memory
+* At least 8GB memory![alt text](images/window_system_prefs.png "windows system preferences image")
+   * select system properties to get this![alt text](images/sys_properties.png "windows systems properties image")
 * [Git for Windows](https://gitforwindows.org/)
 * Install [Docker](https://hub.docker.com/editions/community/docker-ce-desktop-windows) which will automatically install Docker Compose
 * (optional) reverse proxy web server ideally with TLS. Your reverse proxy server will listen on port 3000 for the docnow application

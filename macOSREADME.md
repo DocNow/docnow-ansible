@@ -4,7 +4,8 @@ If you intend to run Docnow on macOS
 
 ### Prerequisites
 
-* At least 8GB memory
+* At least 8GB memory![alt text](images/macos_system_mem.png "macOS system memory image")
+   * You can find this infomation this way ![alt text](images/apple_menu.png "macOS apple preferences image")
 * [Homebrew](https://brew.sh)
 * Git (will be installed via Homebrew)
 * Install [Docker](https://hub.docker.com/editions/community/docker-ce-desktop-mac) and [Docker compose](https://docs.docker.com/compose/install/)
