@@ -1,10 +1,13 @@
 Role Name
 =========
 
-Install docker ce
+Install [docker ce](https://www.docker.com/)
 
 Requirements
 ------------
+
+The role targets Ubuntu and CentOS based systems build on the `x86_64` architecture.
+
 
 
 Role Variables
