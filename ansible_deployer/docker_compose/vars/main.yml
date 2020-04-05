@@ -1,0 +1,11 @@
+---
+# vars file for docker_compose
+---
+docker_compose_download_url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}"
+docker_compose_binary_url: "{{ docker_compose_download_url }}/docker-compose-Linux-x86_64"
+docker_compose_sha256_url: "{{ docker_compose_binary_url }}.sha256"
+
+docker_compose_path: "{{ docker_compose_dest }}/{{ docker_compose_cmd_name }}"
+
+_dcspp: "{{ docker_compose_system_path_prepend }}"
+docker_compose_system_path_value: "{%if _dcspp is true %}{{ docker_compose_path }}:${PATH}{% else %}${PATH}:{{ docker_compose_path }}{% endif %}"

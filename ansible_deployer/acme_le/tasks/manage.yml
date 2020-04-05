@@ -1,0 +1,59 @@
+---
+- set_fact:
+    _letsencrypt_certbot_args: "{{ letsencrypt_certbot_args + ['--renew-by-default'] }}"
+  when: letsencrypt_force_renew
+
+- set_fact:
+    _letsencrypt_certbot_args: "{{ letsencrypt_certbot_args + ['--keep-until-expiring'] }}"
+  when: not letsencrypt_force_renew
+
+- set_fact:
+    _letsencrypt_domains: "--domains {{ letsencrypt_domain}},www.{{ letsencrypt_domain }}"
+  when: letsencrypt_request_www
+
+- set_fact:
+    _letsencrypt_domains: "--domains {{ letsencrypt_domain }}"
+  when: not letsencrypt_request_www
+
+- set_fact:
+  _letsencrypt_certbot_combined_args: "{{_letsencrypt_certbot_args + letsencrypt_certbot_default_args + letsencrypt_certbot_args + [_letsencrypt_domains] }}"
+
+- name: acme_le | stop service
+  service:
+    name: "{{ item }}"
+    state: stopped
+  with_items:
+    - "{{ letsencrypt_pause_services }}"
+  ignore_errors: true
+  register: _services_stopped
+
+- name: acme_le | get or renew cert for domain
+  command: certbot-auto {{ _letsencrypt_certbot_combined_args | join(' ') }}
+  ignore_errors: true
+  register: _certbot_command_client
+  when:
+    - not letsencrypt_test
+
+    # analyze output
+- set_fact:
+    _certbot_command: "{{ _certbot_command_client }}"
+
+- set_fact:
+    _signing_skipped: "{{ (certbot_skip_renewal_message in _certbot_command.stdout) and not letsencrypt_force_renew }}"
+    when: not letsencrypt_test
+
+- debug:
+    msg: "{{ (_certbot_command.stdout_lines if _certbot_command.stdout_lines is defined else _certbot_command.stderr_lines) | pprint }}"
+  when: not letsencrypt_test and (letsencrypt_certbot_verbose or ((not _signing_successful) and not _signing_skipped))
+
+- name: acme_le | start paused services
+  service:
+    name: "{{ item.item }}"
+    state: started
+  when: (item.state is defined and item.state == "stopped")
+  with_items:
+    - "{{ _services_stopped.results|default([]) }}"
+
+- fail:
+    msg: "Error signing the certificate"
+  when: not letsencrypt_test and not _signing_successful and not _signing_skipped 

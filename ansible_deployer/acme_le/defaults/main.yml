@@ -1,0 +1,27 @@
+---
+# defaults file for acme_le
+# This is the certificate admins email - set it to yours!
+letsencrypt_email: yourmail@example.com
+# The domain we're requesting/renewing for
+letsencrypt_domain: example.com
+# Always request www. also?
+letsencrypt_request_www: true
+letsencrypt_certbot_verbose: true
+# Pause these services while updating the certificate
+letsencrypt_pause_services: []
+# Force Certificate Reneval
+letsencrypt_force_renew: true
+letsencrypt_certbot_args: []
+# default arguments passed to certbot
+letsencrypt_certbot_default_args:
+  - certonly
+  - --standalone
+  - --expand
+  - --text
+  - -n
+  - --no-self-upgrade
+  - -m '{{ letsencrypt_email }}'
+  - --agree-tos
+
+# This is enabled when running tests
+letsencrypt_test: false
