@@ -5,3 +5,5 @@ docnow_key
 docnow_key.pub
 # local modified docker compose file
 terraform_aws/staging/ansible/roles/docnow/files/docker-compose.yml
+# ansible hosts
+ansible_deployer/hosts

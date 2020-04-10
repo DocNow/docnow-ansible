@@ -1,0 +1,9 @@
+---
+- hosts: scaleway
+  remote_user: root
+  become: true
+  vars_files:
+    - ../group_vars/scaleway/vars.yml
+
+  roles:
+    - role: ../nginx
