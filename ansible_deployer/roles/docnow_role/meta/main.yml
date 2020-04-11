@@ -18,5 +18,5 @@ galaxy_info:
 
 dependencies:
   - role: docker_ce
-  - role: docker_composer
+  - role: docker_compose
   - role: users

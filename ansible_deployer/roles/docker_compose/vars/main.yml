@@ -1,6 +1,5 @@
 ---
 # vars file for docker_compose
----
 docker_compose_download_url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}"
 docker_compose_binary_url: "{{ docker_compose_download_url }}/docker-compose-Linux-x86_64"
 docker_compose_sha256_url: "{{ docker_compose_binary_url }}.sha256"

@@ -3,7 +3,7 @@
   remote_user: root
   become: true
   vars_files:
-    - ../group_vars/scaleway/vars.yml
+    - group_vars/scaleway/vars.yml
 
   roles:
-    - role: ../nginx
+    - role: roles/docnow_role
