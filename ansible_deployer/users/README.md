@@ -1,7 +1,7 @@
 Role Name
 =========
 
-This role installs a user on a remote machine
+installs a user on a remote machine
 
 Requirements
 ------------

@@ -1,0 +1,11 @@
+---
+users_group_list:
+  - name: docnow
+
+users_user_list:
+  - name: docnow
+    comment: Docnow User
+    group: docnow
+    sudo_options: "ALL=(ALL) NOPASSWD: ALL"
+
+docnow_user: "docnow"
