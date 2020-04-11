@@ -1,5 +1,11 @@
 ---
 # tasks file for docker_ce
+- name: docker_ce | install python dependencies
+  package:
+    name: python3-pip
+    state: present
+    update_cache: true
+
 - name: docker_ce | remove any docker installed
   package:
     name: "{{ docker_ce_old }}"

@@ -4,16 +4,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pylint = "*"
 
 [packages]
-molecule = "<=2.22"
 ansible = "*"
-docker = "*"
-invoke = "*"
-neovim = "*"
-gitpython = "*"
-importlib-metadata = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
