@@ -1,18 +1,9 @@
 ---
 # tasks file for docker_compose
-- name: docker_compose | Set fact for the sha256 of compose
-  set_fact:
-    docker_compose_shafile: "{{ lookup('url', docker_compose_sha256_url) }}"
-
-- name: docker_compose | Set fact for the sha256 checksum
-  set_fact:
-    docker_compose_sha256: "{{ docker_compose_shafile | regex_replace('^(?P<sha>\\w+).*$', '\\g<sha>') }}"
-
 - name: docker_compose | Fetch docker compose
   get_url:
-        url: "{{ docker_compose_binary_url }}"
-        dest: "{{ docker_compose_path }}"
-        mode: 0755
-        owner: "{{ docker_compose_user }}"
-        group: "{{ docker_compose_group }}"
-        checksum: "sha256:{{ docker_compose_sha256 }}"
+    url: "{{ docker_compose_binary_url }}"
+    dest: "{{ docker_compose_path }}"
+    mode: 0755
+    owner: "{{ docker_compose_user }}"
+    group: "{{ docker_compose_group }}"

@@ -1,4 +1,9 @@
 ---
+- name: install sudo
+  apt:
+    name: sudo
+    state: present
+
 - name: create local ssh_key_directory
   file:
     path: "{{ users_ssh_key_directory }}"

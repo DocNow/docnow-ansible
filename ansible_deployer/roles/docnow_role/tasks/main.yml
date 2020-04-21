@@ -9,9 +9,13 @@
     update: true
   become: true
 
+- name: Docnow | ensure docker is running
+  service:
+    name: docker
+    state: started
+
 - name: Docnow | Run launch docnow app
   command: /usr/local/bin/docker-compose up -d
   become: true
-  become_user: docnow_user
   args:
     chdir: /var/local/docnow/docnow_app

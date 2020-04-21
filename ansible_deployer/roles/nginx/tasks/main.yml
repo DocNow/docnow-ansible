@@ -4,7 +4,7 @@
   apt_key:
     keyserver: keyserver.ubuntu.com
     id: ABF5BD827BD9BF62
-  when: ansible_os_family == Ubuntu
+  when: ansible_os_family == "Debian"
 
 - name: Nginx | add nginx yum repository
   yum_repository:
@@ -13,7 +13,7 @@
     baseurl: http://nginx.org/packages/centos/7/$basearch/
     gpgkey: http://nginx.org/packages/keys/nginx_signing.key
     gpgcheck: true
-  when: ansible_os_family == Redhat
+  when: ansible_os_family == "Redhat"
 
 - name: Nginx | make sure repository has priority
   ini_file:
@@ -22,13 +22,13 @@
     option: priority
     value: 2
     backup: true
-  when: ansible_os_family == Redhat
+  when: ansible_os_family == "Redhat"
 
 - name: Nginx | add ubuntu nginx repo
   apt_repository:
     repo: deb http://nginx.org/packages/ubuntu/ bionic nginx
     state: present
-  when: ansible_os_family == Ubuntu
+  when: ansible_os_family == "Debian"
 
 - name: Nginx | install nginx
   package:

@@ -20,6 +20,15 @@
   notify:
     - apt update cache
 
+- name: install docker_ce repository for apt
+  apt_repository:
+    repo: "{{ docker_ce_apt_repository_repo }}"
+    state: present
+  when:
+    - ansible_pkg_mgr == "apt"
+  notify:
+    - apt update cache
+
 - name: docker_ce | install repository for yum
   yum_repository:
     name: "{{ item.name }}"
