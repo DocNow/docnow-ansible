@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  gather_facts: false
+  environment:
+    SCW_API_KEY: "{{ scw_api_key }}"
+  vars_files:
+    - ../group_vars/scaleway/vars.yml
+  tasks:
+    - name: stop a docnow server
+      scaleway_compute:
+        name: docnow_vm
+        state: stopped
+        image: 6651f88f-45af-4b93-95e8-3931b74f6acc
+        organization: "{{ organization_id }}"
+        region: par1
+        commercial_type: DEV1-XL
+        tags:
+          - docnow
+          - app
+      register: server_destroyed
+
+    - name: destroy a docnow server
+      scaleway_compute:
+        name: docnow_vm
+        state: absent
+        image: 6651f88f-45af-4b93-95e8-3931b74f6acc
+        organization: "{{ organization_id }}"
+        region: par1
+        commercial_type: DEV1-XL
+        tags:
+          - docnow
+          - app
