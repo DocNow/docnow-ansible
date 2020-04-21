@@ -1,5 +1,23 @@
 ---
 # tasks file for docker_ce
+- name: docker_ce | adjust max map count
+  sysctl:
+    name: vm.max_map_count
+    value: "262144"
+    state: present
+
+- name: docker_ce | adjust redis overcommit
+  sysctl:
+    name: vm.overcommit_memory
+    value: "1"
+    state: present
+
+- name: docker_ce | adjust fs_notify
+  sysctl:
+    name: fs.inotify.max_user_watches
+    value: "524288"
+    state: present
+
 - name: docker_ce | install python dependencies
   package:
     name: python3-pip
