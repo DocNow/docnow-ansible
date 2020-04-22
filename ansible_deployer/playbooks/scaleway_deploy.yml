@@ -1,0 +1,39 @@
+---
+- hosts: localhost
+  gather_facts: false
+  environment:
+    SCW_API_KEY: "{{ scw_api_key }}"
+  vars_files:
+    - ../group_vars/scaleway/vars.yml
+  tasks:
+    - name: create scaleway ssh key
+      scaleway_sshkey:
+        ssh_pub_key: "{{ your_ssh_rsa_public_key }}"
+        state: present
+      register: result
+
+    - name: Create a docnow server
+      scaleway_compute:
+        name: docnow_vm
+        state: running
+        image: 6651f88f-45af-4b93-95e8-3931b74f6acc
+        public_ip: dynamic
+        organization: "{{ organization_id }}"
+        region: par1
+        commercial_type: DEV1-XL
+        tags:
+          - docnow
+          - app
+      register: server_created
+
+    - debug: var=server_created
+    - debug: msg="{{ server_created.msg.public_ip }}"
+
+- hosts: all
+  remote_user: root
+  become: true
+  vars_files:
+    - ../group_vars/scaleway/vars.yml
+  tasks:
+  roles:
+    - role: roles/nginx

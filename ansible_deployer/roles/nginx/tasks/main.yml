@@ -1,0 +1,68 @@
+---
+# tasks file for nginx
+- name: Nginx | add the nginx key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: ABF5BD827BD9BF62
+  when: ansible_os_family == "Debian"
+
+- name: Nginx | add nginx yum repository
+  yum_repository:
+    name: nginx
+    description: Nginx Repository
+    baseurl: http://nginx.org/packages/centos/7/$basearch/
+    gpgkey: http://nginx.org/packages/keys/nginx_signing.key
+    gpgcheck: true
+  when: ansible_os_family == "Redhat"
+
+- name: Nginx | make sure repository has priority
+  ini_file:
+    dest: /etc/yum.repos.d/nginx.repo
+    section: nginx
+    option: priority
+    value: 2
+    backup: true
+  when: ansible_os_family == "Redhat"
+
+- name: Nginx | add ubuntu nginx repo
+  apt_repository:
+    repo: deb http://nginx.org/packages/ubuntu/ bionic nginx
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Nginx | install nginx
+  package:
+    name: nginx
+    state: present
+  register: nginx_install_nginx
+
+- name: Nginx | add nginx.conf file
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    validate: nginx -t -c %s
+  notify:
+    - restart nginx
+
+- name: Nginx ensure /etc/nginx/conf.d exists
+  file:
+    path: /etc/nginx/conf.d
+    state: directory
+
+- name: Nginx | remove default config
+  file:
+    path: /etc/nginx/conf.d/default.conf
+    state: absent
+
+- name: Nginx | place docnow_app.conf
+  template:
+    src: docnow_app.conf.j2
+    dest: /etc/nginx/conf.d/docnow_app.conf
+  notify:
+    - restart nginx
+
+- name: Nginx | start and enable nginx
+  service:
+    name: nginx
+    state: started
+    enabled: true

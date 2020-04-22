@@ -1,0 +1,9 @@
+---
+# tasks file for docker_compose
+- name: docker_compose | Fetch docker compose
+  get_url:
+    url: "{{ docker_compose_binary_url }}"
+    dest: "{{ docker_compose_path }}"
+    mode: 0755
+    owner: "{{ docker_compose_user }}"
+    group: "{{ docker_compose_group }}"

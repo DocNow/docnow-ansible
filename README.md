@@ -13,7 +13,7 @@ The goal of this repository is to set up
 The links below will lead you to documentation for the various ways you may install the DocNow App which may require additional software installed.
 
 
-### Run Docnow Locally
+### Run Docnow Locally on your own devices
 
 
 **On CentOS**
@@ -33,7 +33,7 @@ The links below will lead you to documentation for the various ways you may inst
 [Follow instructions here](ubuntuREADME.md)
 
 
-### Run Docnow on Host Providers
+### Run Docnow on hosted/paid service providers
 
 
 **On AWS (TO DO)**
