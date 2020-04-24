@@ -6,7 +6,7 @@ Ansible Installer the Docnow App
 ## Purpose
 
 The goal of this repository is to set up
-[docnow/docnow](https://github.com/docnow/docnow) tool. You will need install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and clone this repository with with the command below:
+[docnow/docnow](https://github.com/docnow/docnow) tool. You will need to install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and clone this repository with the command below:
 
 ```bash
 git clone https://github.com/docnow/docnow-ansible.git
