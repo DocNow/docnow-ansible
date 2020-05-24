@@ -1,6 +1,5 @@
 ## Scaleway Service Provider
 
-
 ***The following instructions will cost you money. Please remember to turn off your VPS when you are done***
 
 * Mininally you will need to [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) Ansible will be used to configure the Virtual Private Server you will be setting up on [Scaleway](https://www.scaleway.com/en/) that will be hosting the docnow app.
@@ -26,7 +25,7 @@
   * Click Create.
     * You should see the keys you created earlier. If not [create ssh-keys](https://www.scaleway.com/en/docs/configure-new-ssh-key/)
 *  You will need to use the contents of `Public IP` on your [ansible_deployer/hosts](ansible_deployer/hosts) under the `[scaleway]` block. 
-  * Take not of your `Public DNS` as this will be the URL of your fully configured application
+  * Take note of your `Public DNS` as this will be the URL of your fully configured application
 
 
 ### Launch your application

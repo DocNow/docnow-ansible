@@ -56,6 +56,6 @@ The links below will lead you to documentation for the various ways you may inst
 
 [Follow instructions here](scalewayREADME.md)
 
-**On Vultr (TO DO)**
+**On Vultr**
 
 [Follow instructions here](vultrREADME.md)
