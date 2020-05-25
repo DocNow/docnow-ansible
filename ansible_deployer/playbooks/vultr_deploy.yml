@@ -1,0 +1,39 @@
+---
+- hosts: localhost
+  gather_facts: false
+  environment:
+    SCW_API_KEY: "{{ vultr_api_key }}"
+  vars_files:
+    - ../group_vars/vultr/vars.yml
+  tasks:
+    - name: create vultr ssh key
+      vultr_ssh_key:
+        name: my ssh key
+        ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+        state: present
+      register: ssh_key_result
+
+    - name: create a docnow server
+      delegate_to: localhost
+      vultr_server:
+        name: "{{ vultr_server_name }}"
+        os: CentOS 7 x64
+        plan: 2048 MB RAM,25 GB SSD,1.00 TB BW
+        ssh_keys:
+          - my_key
+          - your_key
+        region: Amsterdam
+        state: present
+      register: server_created
+
+    - debug: var=server_created
+    - debug: msg="{{ server_created.msg.public_ip }}"
+
+- hosts: all
+  remote_user: root
+  become: true
+  vars_files:
+    - ../group_vars/vultr/vars.yml
+  tasks:
+  roles:
+    - role: roles/nginx

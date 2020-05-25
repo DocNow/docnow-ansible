@@ -1,0 +1,17 @@
+---
+users_group_list:
+  - name: docnow
+  - name: docker
+users_user_list:
+  - name: docnow
+    comment: Docnow User
+    group: docnow
+    sudo_options: "ALL=(ALL) NOPASSWD: ALL"
+  - name: root
+    comment: Toor User
+    group: root
+    sudo_options: "ALL=(ALL) NOPASSWD: ALL"
+docnow_user: "docnow"
+docker_compose_user: "{{ docnow_user }}"
+docker_compose_group: "{{ docnow_user }}"
+vultr_api_key: ""
