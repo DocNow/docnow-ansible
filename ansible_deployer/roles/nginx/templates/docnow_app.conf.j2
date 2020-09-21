@@ -1,16 +1,18 @@
 {{ ansible_managed | comment }}
 server {
     listen       {{ nginx_port }};
-    server_name  localhost;
+    server_name  _;
 
-    location     / {
-        root     /usr/share/nginx/html;
-        index    index.html index.htm;
-		proxy_pass http://127.0.0.1:3000;
-    }
-    error_page   500 502 503 504  /50x.html;
-    location =   /50x.html {
-        root     /usr/share/nginx/html;
+    root "{{ docnow_app_root }}/public";
+
+    # Passenger
+	passenger_enabled on;
+
+	# Nodejs
+	passenger_app_type node;
+	passenger_startup_file dist/commands/server.js;
+	passenger_app_root "{{ docnow_app_root }}";
+
     }
 
 }
