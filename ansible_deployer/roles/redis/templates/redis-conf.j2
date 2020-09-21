@@ -1,0 +1,151 @@
+{{ ansible_managed | comment }}
+
+################################## INCLUDES ###################################
+
+
+################################## NETWORK #####################################
+
+
+bind 127.0.0.1
+
+# Protected mode is a layer of security protection, in order to avoid that
+
+port 6379
+
+# TCP listen() backlog.
+
+tcp-backlog 511
+
+timeout 0
+
+# TCP keepalive.
+
+tcp-keepalive 300
+
+################################# GENERAL #####################################
+
+
+daemonize yes
+supervised no
+pidfile /var/run/redis/redis-server.pid
+loglevel notice
+logfile /var/log/redis/redis-server.log
+
+databases 16
+
+################################ SNAPSHOTTING  ################################
+
+save 900 1
+save 300 10
+save 60 10000
+
+stop-writes-on-bgsave-error yes
+rdbcompression yes
+rdbchecksum yes
+dbfilename dump.rdb
+dir /var/lib/redis
+
+################################# REPLICATION #################################
+
+
+slave-serve-stale-data yes
+
+slave-read-only yes
+
+# Replication SYNC strategy: disk or socket.
+#
+# -------------------------------------------------------
+# WARNING: DISKLESS REPLICATION IS EXPERIMENTAL CURRENTLY
+# -------------------------------------------------------
+#
+
+repl-diskless-sync no
+
+repl-diskless-sync-delay 5
+
+repl-disable-tcp-nodelay no
+
+slave-priority 100
+
+
+################################## SECURITY ###################################
+
+
+
+################################### LIMITS ####################################
+
+
+
+############################## APPEND ONLY MODE ###############################
+
+
+appendonly no
+
+# The name of the append only file (default: "appendonly.aof")
+
+appendfilename "appendonly.aof"
+
+
+no-appendfsync-on-rewrite no
+
+
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+
+aof-load-truncated yes
+
+################################ LUA SCRIPTING  ###############################
+
+lua-time-limit 5000
+
+################################ REDIS CLUSTER  ###############################
+#
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# WARNING EXPERIMENTAL: Redis Cluster is considered to be stable code, however
+# in order to mark it as "mature" we need to wait for a non trivial percentage
+# of users to deploy it in production.
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+################################## SLOW LOG ###################################
+
+
+slowlog-log-slower-than 10000
+
+slowlog-max-len 128
+
+################################ LATENCY MONITOR ##############################
+
+
+latency-monitor-threshold 0
+
+############################# EVENT NOTIFICATION ##############################
+
+notify-keyspace-events ""
+
+############################### ADVANCED CONFIG ###############################
+
+hash-max-ziplist-entries 512
+hash-max-ziplist-value 64
+
+list-max-ziplist-size -2
+
+list-compress-depth 0
+
+set-max-intset-entries 512
+
+zset-max-ziplist-entries 128
+zset-max-ziplist-value 64
+
+hll-sparse-max-bytes 3000
+
+activerehashing yes
+
+client-output-buffer-limit normal 0 0 0
+client-output-buffer-limit slave 256mb 64mb 60
+client-output-buffer-limit pubsub 32mb 8mb 60
+
+hz 10
+
+aof-rewrite-incremental-fsync yes
