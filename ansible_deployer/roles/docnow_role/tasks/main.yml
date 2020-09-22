@@ -20,6 +20,13 @@
     dest: "{{ docnow_app_home }}/docnow/.env"
     state: link
 
+- name: Docnow | Symbolic Link for public
+  file:
+    src: "{{ docnow_app_home }}/docnow/userData"
+    dest: "{{ docnow_app_home }}/docnow/public"
+    state: link
+
 - name: Docnow | install modules
   npm:
     path: "{{ docnow_app_home }}/docnow"
+  become: true
