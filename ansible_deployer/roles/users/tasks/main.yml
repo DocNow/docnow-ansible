@@ -1,6 +1,13 @@
 ---
 # tasks file for users
-- name: loop over users_group_list
+#
+- name: user | install essential
+  apt:
+    name: ["build-essential", "git"]
+    state: present
+    update_cache: true
+
+- name: user | loop over users_group_list
   include: group.yml
   loop: "{{ users_group_list }}"
   loop_control:
@@ -9,7 +16,7 @@
   when:
     - users_group_list is defined
 
-- name: loop over users_user_list
+- name: user | loop over users_user_list
   include: user.yml
   loop: "{{ users_user_list }}"
   loop_control:
