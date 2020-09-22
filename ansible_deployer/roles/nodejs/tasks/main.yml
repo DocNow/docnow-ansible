@@ -7,7 +7,7 @@
   register: pool_servers
   ignore_errors: true
 
-- name: node: Get upstream APT GPG key from MIT
+- name: node | Get upstream APT GPG key from MIT
   apt_key:
     id: "{{ nodejs__upstream_key_id }}"
     state: present

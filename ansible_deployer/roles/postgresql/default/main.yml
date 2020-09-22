@@ -1,6 +1,5 @@
 ---
 # defaults file for postgresql
-
 postgresql_port: 5432
 postgresql_listen_addresses: 127.0.0.1
 postgresql_unix_socket_directories: /var/run/postgresql

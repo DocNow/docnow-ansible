@@ -1,10 +1,35 @@
 ---
 # tasks file for postgresql
 #
+- name: PostgreSQL | Make sure the CA certificates are available
+  apt:
+    pkg: ca-certificates
+    state: present
+
+- name: Postgresql | Add PostgreSQL repository apt-key | apt
+  apt_key:
+    id: "{{ postgresql_apt_key_id }}"
+    url: "{{ postgresql_apt_key_url }}"
+    state: present
+
+- name: Postgresql | Add PostgreSQL repository | apt
+  apt_repository:
+    repo: "{{ postgresql_apt_repository }}"
+    state: present
+
 - name: postgresql | install postgres
   package:
     name: "{{ postgresql_packages }}"
     state: present
+
+- name: Postgresql | install postgresql client packages
+  apt:
+    name: '{{ item }}'
+    state: present
+    update_cache: true
+  loop:
+    - libpq-dev
+    - python-psycopg2
 
 - name: postgresql | create postgresql data directory
   file:
