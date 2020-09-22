@@ -1,0 +1,8 @@
+---
+redis_packages: "redis-server"
+redis_configuration_directory: "/etc/redis"
+redis_configuration_file: "redis.conf"
+redis_owner: "redis"
+redis_group: "{{ redis_owner }}"
+redis_mode: "640"
+redis_service: "redis-server"

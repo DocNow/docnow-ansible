@@ -1,2 +1,4 @@
 [scaleway]
 1.2.3.4 # (modify this with your Scaleway Provider IP address)
+[gcp_docnow_dev2]
+gcp_community_dev2 ansible_host=10.0.40.5

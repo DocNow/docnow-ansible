@@ -1,2 +1,3 @@
 ---
 # defaults file for ansible_deployer/docnow_role
+docnow_app_home: "/var/local/docnow_app"

@@ -1,0 +1,13 @@
+---
+postgresql_packages:
+  - "postgresql-{{ pg_version }}"
+  - "postgresql-client-{{ pg_version }}"
+
+postgresql_dir: "/var/lib/postgresql/{{ pg_version }}"
+postgresql_conf_dir: "/etc/postgresql/{{ pg_version }}/main"
+pg_version: 12
+postgresql_acceptable_timezones: ["ACSST", "ACST", "ACT", "ADT", "AESST", "AEST", "AFT", "AKDT", "AKST", "ALMST", "ALMT", "AMST", "AMT", "ANAST", "ANAT", "ARST", "ART", "AST", "AWSST", "AWST", "AZOST", "AZOT", "AZST", "AZT", "BDST", "BDT", "BNT", "BORT", "BOT", "BRA", "BRST", "BRT", "BST", "BTT", "CADT", "CAST", "CCT", "CDT", "CEST", "CET", "CETDST", "CHADT", "CHAST", "CHUT", "CKT", "CLST", "CLT", "COT", "CST", "CXT", "DAVT", "DDUT", "EASST", "EAST", "EAT", "EDT", "EEST", "EET", "EETDST", "EGST", "EGT", "EST", "FET", "FJST", "FJT", "FKST", "FKT", "FNST", "FNT", "GALT", "GAMT", "GEST", "GET", "GFT", "GILT", "GMT", "GYT", "HKT", "HST", "ICT", "IDT", "IOT", "IRKST", "IRKT", "IRT", "IST", "JAYT", "JST", "KDT", "KGST", "KGT", "KOST", "KRAST", "KRAT", "KST", "LHDT", "LHST", "LIGT", "LINT", "LKT", "MAGST", "MAGT", "MART", "MAWT", "MDT", "MEST", "MET", "METDST", "MEZ", "MHT", "MMT", "MPT", "MSD", "MSK", "MST", "MUST", "MUT", "MVT", "MYT", "NDT", "NFT", "NOVST", "NOVT", "NPT", "NST", "NUT", "NZDT", "NZST", "NZT", "OMSST", "OMST", "PDT", "PET", "PETST", "PETT", "PGT", "PHOT", "PHT", "PKST", "PKT", "PMDT", "PMST", "PONT", "PST", "PWT", "PYST", "PYT", "RET", "SADT", "SAST", "SCT", "SGT", "TAHT", "TFT", "TJT", "TKT", "TMT", "TOT", "TRUT", "TVT", "UCT", "ULAST", "ULAT", "UT", "UTC", "UYST", "UYT", "UZST", "UZT", "VET", "VLAST", "VLAT", "VOLT", "VUT", "WADT", "WAKT", "WAST", "WAT", "WDT", "WET", "WETDST", "WFT", "WGST", "WGT", "YAKST", "YAKT", "YAPT", "YEKST", "YEKT", "Z", "ZULU"]
+postgresql_apt_key_id: "ACCC4CF8"
+postgresql_apt_key_url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+postgresql_apt_repository: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
+postgresql_bin_directory: /usr/bin

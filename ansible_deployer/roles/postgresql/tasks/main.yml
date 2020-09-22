@@ -1,0 +1,123 @@
+---
+# tasks file for postgresql
+#
+- name: PostgreSQL | Make sure the CA certificates are available
+  apt:
+    pkg: ca-certificates
+    state: present
+
+- name: Postgresql | Add PostgreSQL repository apt-key | apt
+  apt_key:
+    id: "{{ postgresql_apt_key_id }}"
+    url: "{{ postgresql_apt_key_url }}"
+    state: present
+
+- name: Postgresql | Add PostgreSQL repository | apt
+  apt_repository:
+    repo: "{{ postgresql_apt_repository }}"
+    state: present
+
+- name: postgresql | install postgres
+  package:
+    name: "{{ postgresql_packages }}"
+    state: present
+
+- name: Postgresql | install postgresql client packages
+  apt:
+    name: '{{ item }}'
+    state: present
+    update_cache: true
+  loop:
+    - libpq-dev
+    - python-psycopg2
+
+- name: postgresql | create postgresql data directory
+  file:
+    path: "{{ postgresql_dir }}"
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: "700"
+
+- name: postgresql | configure postgres
+  lineinfile:
+    path: "{{ postgresql_conf_dir }}/postgresql.conf"
+    regex: "^{{ item.name }} ="
+    line: "{{ item.name }} = '{{ item.value }}'"
+    create: yes
+    mode: "0644"
+  loop:
+    - name: port
+      value: "{{ postgresql_port }}"
+    - name: listen_addresses
+      value: "{{ postgresql_listen_addresses }}"
+    - name: unix_socket_directories
+      value: "{{ postgresql_unix_socket_directories }}"
+    - name: max_wal_size
+      value: "{{ postgresql_max_wal_size }}"
+    - name: min_wal_size
+      value: "{{ postgresql_min_wal_size }}"
+    - name: log_timezone
+      value: "{{ postgresql_log_timezone }}"
+    - name: datestyle
+      value: "{{ postgresql_datestyle }}"
+    - name: timezone
+      value: "{{ postgresql_timezone }}"
+    - name: default_text_search_config
+      value: "{{ postgresql_default_text_search_config }}"
+  notify:
+    - restart postgresql
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: postgresql | create pg_hba.conf
+  template:
+    src: pg_hba.conf.j2
+    dest: "{{ postgresql_conf_dir }}/pg_hba.conf"
+    backup: yes
+    mode: "0644"
+  notify:
+    - reload postgresql
+
+- name: postgresql | start and enable postgresql
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: postgresql | install psycopg2-binary
+  pip:
+    name: psycopg2-binary
+    state: present
+  when:
+    - postgresql_databases is defined or
+      postgresql_users is defined
+
+- name: flush handlers
+  meta: flush_handlers
+
+- name: postgresql | create postgresql database
+  postgresql_db:
+    name: "{{ item.name }}"
+    state: present
+  loop: "{{ postgresql_databases }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - postgresql_databases is defined
+  become_user: postgres
+  become: true
+
+- name: postgresql | create postgresql users
+  postgresql_user:
+    name: "{{ item.name }}"
+    db: "{{ item.db | default(omit) }}"
+    password: "{{ item.password }}"
+    expires: "{{ item.expires | default(omit) }}"
+  loop: "{{ postgresql_users }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - postgresql_users is defined
+  become_user: postgres
+  become: true

@@ -4,18 +4,29 @@
   git:
     repo: "https://github.com/docnow/docnow.git"
     version: 'master'
-    dest: "/var/local/docnow/docnow_app"
+    dest: "{{ docnow_app_home }}/docnow"
     clone: true
     update: true
   become: true
 
-- name: Docnow | ensure docker is running
-  service:
-    name: docker
-    state: started
+- name: Docnow | install node environment settings
+  template:
+    src: env.production.j2
+    dest: "{{ docnow_app_home }}/docnow/.env.production"
 
-- name: Docnow | Run launch docnow app
-  command: /usr/local/bin/docker-compose up -d
+- name: Docnow | Symbolic Link
+  file:
+    src: "{{ docnow_app_home }}/docnow/.env.production"
+    dest: "{{ docnow_app_home }}/docnow/.env"
+    state: link
+
+- name: Docnow | Symbolic Link for public
+  file:
+    src: "{{ docnow_app_home }}/docnow/userData"
+    dest: "{{ docnow_app_home }}/docnow/public"
+    state: link
+
+- name: Docnow | install modules
+  npm:
+    path: "{{ docnow_app_home }}/docnow"
   become: true
-  args:
-    chdir: /var/local/docnow/docnow_app

@@ -1,3 +1,11 @@
 ---
 # vars file for nginx
-nginx_user: "nginx"
+nginx_user: "www-data"
+nginx_passenger_packages:
+  - nginx
+  - nginx-extras
+  - libnginx-mod-http-passenger
+
+passenger_apt_key_id: "561F9B9CAC40B2F7"
+passenger_apt_key_url: "keyserver.ubuntu.com"
+passenger_apt_repository: "deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ ansible_distribution_release }} main"
