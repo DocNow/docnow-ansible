@@ -1,4 +1,5 @@
 # Install the docnow application
+
 Ansible Installer the Docnow App
 
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
@@ -16,25 +17,24 @@ git clone https://github.com/docnow/docnow-ansible.git
 
 The links below will lead you to documentation for the various ways you may install the DocNow App which may require additional software installed.
 
-
 ### Run Docnow Locally on your own devices
 
 
 **On CentOS**
 
-[Follow instructions here](centOSREADME.md)
+[Follow instructions here](docs/centOSREADME.md)
 
 **On MacOS**
 
-[Follow instructions here](macOSREADME.md)
+[Follow instructions here](docs/macOSREADME.md)
 
 **On Microsoft Windows**
 
-[Follow instructions here](mswindowsREADME.md)
+[Follow instructions here](docs/mswindowsREADME.md)
 
 **On Ubuntu**
 
-[Follow instructions here](ubuntuREADME.md)
+[Follow instructions here](docs/ubuntuREADME.md)
 
 
 ### Run Docnow on hosted/paid service providers
@@ -42,20 +42,20 @@ The links below will lead you to documentation for the various ways you may inst
 
 **On AWS (TO DO)**
 
-[Follow instructions here](awsREADME.md)
+[Follow instructions here](docs/awsREADME.md)
 
 **On Digitalocean (TO DO)**
 
-[Follow instructions here](doREADME.md)
+[Follow instructions here](docs/doREADME.md)
 
 **On Google Cloud (TO DO)**
 
-[Follow instructions here](gcpREADME.md)
+[Follow instructions here](docs/gcpREADME.md)
 
 **On Scaleway**
 
-[Follow instructions here](scalewayREADME.md)
+[Follow instructions here](docs/scalewayREADME.md)
 
 **On Vultr (TO DO)**
 
-[Follow instructions here](vultrREADME.md)
+[Follow instructions here](docs/vultrREADME.md)
