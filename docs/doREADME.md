@@ -1,1 +1,0 @@
-## Digitalocean Service Provider
