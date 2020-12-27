@@ -1,38 +1,31 @@
 ---
-name: Molecule CI
-'on':
-  pull_request:
-  push:
-    branches:
-      - main
-
+name: Molecule Tests
+on: [push]
 jobs:
-
   test:
-    name: Molecule
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro:
-          - centos8
-          - debian10
-
+        role:
     steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v2
-
-      - name: Set up Python 3.
-        uses: actions/setup-python@v2
+      - name: Checkout branch
+        run: |
+          git config --global http.postBuffer 1048576000
+          for i in 1 2 3 4 5; do git clone https://github.com/docnow/docnow-ansible.git . && break || sleep 15; done
+          git checkout ${{ github.sha }}
+      - name: Set up Python
+        uses: actions/setup-python@v1
         with:
-          python-version: '3.x'
-
-      - name: Install test dependencies.
-        run: pip3 install molecule[docker] yamllint ansible-lint
-
-      - name: Run Molecule tests.
-        run: molecule test
-        env:
-          PY_COLORS: '1'
-          ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.distro }}
-        working-directory: molecule
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Disable apparmor
+        run: |
+          sudo service apparmor stop
+          sudo service apparmor teardown
+          sudo /usr/sbin/update-rc.d -f apparmor remove
+      - name: Run tests
+        run: |
+          ROLE=${{ matrix.role }} python run_molecule.py
