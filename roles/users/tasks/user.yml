@@ -8,6 +8,7 @@
   file:
     path: "{{ users_ssh_key_directory }}"
     state: directory
+    mode: 0755
   when:
     - user.manage_ssh_key is defined
     - user.manage_ssh_key | bool
@@ -31,6 +32,7 @@
   template:
     src: sudo.j2
     dest: "/etc/sudoers.d/{{ user.name }}"
+    mode: 0600
   when:
     - user.sudo_options is defined
   loop_control:
