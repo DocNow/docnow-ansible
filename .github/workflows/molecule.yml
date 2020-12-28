@@ -8,6 +8,7 @@ jobs:
       matrix:
         role:
           - users
+          - redis
     steps:
       - name: Checkout branch
         run: |
