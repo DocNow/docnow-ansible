@@ -1,0 +1,27 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: users
+      users_group_list:
+        - name: docnow
+          gid: 1024
+        - name: users
+        - name: notgroup
+          state: absent
+
+      users_user_list:
+        - name: root
+          cron_allow: true
+        - name: docnow
+          comment: Docnow User
+          uid: 1024
+          group: docnow
+          groups: users
+          cron_allow: true
+          sudo_options: "ALL=(ALL) NOPASSWD: ALL"
+        - name: notuser
+          state: absent

@@ -1,8 +1,5 @@
-terraform_aws/staging/terraform.tfstate*
-terraform_aws/staging/hosts
-.terraform
+# private keys
 docnow_key
 docnow_key.pub
-# local modified docker compose file
-terraform_aws/staging/ansible/roles/docnow/files/docker-compose.yml
-ansible_deployer/hosts
+# do not commit hosts file
+hosts
