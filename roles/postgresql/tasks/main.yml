@@ -79,8 +79,9 @@
   template:
     src: pg_hba.conf.j2
     dest: "{{ postgresql_conf_dir }}/pg_hba.conf"
-    backup: yes
+    backup: true
     mode: 0644
+  changed_when: false
   notify:
     - reload postgresql
 
@@ -91,8 +92,8 @@
     enabled: true
 
 - name: postgresql | install psycopg2-binary
-  pip:
-    name: psycopg2-binary
+  apt:
+    name: ["python3-psycopg2", "python-psycopg2"]
     state: present
   when:
     - postgresql_databases is defined or

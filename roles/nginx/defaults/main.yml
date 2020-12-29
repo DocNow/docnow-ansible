@@ -1,2 +1,4 @@
 ---
 # defaults file for nginx
+nginx_port: 80
+docnow_app_home: "/var/local/docnow_app/docnow"

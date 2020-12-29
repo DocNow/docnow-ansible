@@ -1,0 +1,21 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  pre_tasks:
+    - name: update cache
+      apt:
+        update_cache: true
+        cache_valid_time: 600
+  vars:
+    - docnow_app_root: "/var/local/docnow_app/docnow/"
+    - db_hostname: "127.0.0.1"
+    - db_username: "docnow"
+    - db_password: "Change_me"
+    - db_name: "docnow_dev"
+    - node_env: "production"
+    - redis_host: "127.0.0.1"
+  tasks:
+    - name: "Include nginx"
+      include_role:
+        name: nginx
