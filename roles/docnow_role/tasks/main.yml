@@ -1,5 +1,5 @@
 ---
-# tasks file for ansible_deployer/docnow_role
+# tasks file for docnow_role
 - name: Docnow | Clone Docnow appraisal app
   git:
     repo: "https://github.com/docnow/docnow.git"
@@ -13,6 +13,7 @@
   template:
     src: env.production.j2
     dest: "{{ docnow_app_home }}/docnow/.env.production"
+    mode: 0644
 
 - name: Docnow | Symbolic Link
   file:

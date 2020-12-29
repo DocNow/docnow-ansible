@@ -11,6 +11,7 @@ jobs:
           - redis
           - postgresql
           - nodejs
+          - docnow_role
     steps:
       - name: Checkout branch
         run: |
