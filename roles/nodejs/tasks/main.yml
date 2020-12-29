@@ -1,5 +1,10 @@
 ---
-- name: node | Get upstream APT GPG key
+- name: Install node prerequisite packages
+  apt:
+    name: ["gpg-agent"]
+    state: present
+
+- name: Get upstream APT GPG key
   apt_key:
     id: "{{ nodejs__upstream_key_id }}"
     keyserver: "hkp://pool.sks-keyservers.net"
@@ -7,7 +12,7 @@
   register: pool_servers
   ignore_errors: true
 
-- name: node | Get upstream APT GPG key from MIT
+- name: Get upstream APT GPG key from MIT
   apt_key:
     id: "{{ nodejs__upstream_key_id }}"
     state: present
@@ -16,7 +21,7 @@
   when: pool_servers is failed
   ignore_errors: true
 
-- name: node | Get upstream APT GPG key from PGP
+- name: Get upstream APT GPG key from PGP
   apt_key:
     id: "{{ nodejs__upstream_key_id }}"
     state: present
@@ -24,12 +29,50 @@
   when: mit_servers is failed
   ignore_errors: true
 
+- name: Add upstream Yarn APT key from PGP
+  apt_key:
+    id: "{{ nodejs__yarn_upstream_key_id }}"
+    keyserver: "hkp://pool.sks-keyservers.net"
+    state: present
+  register: yarnpool_servers
+  ignore_errors: true
+  changed_when: false
+
+- name: Add upstream Yarn APT key from MIT
+  apt_key:
+    id: "{{ nodejs__yarn_upstream_key_id }}"
+    state: present
+    keyserver: "pgp.mit.edu"
+  when: yarnpool_servers is failed
+  register: yarnmit_servers
+  ignore_errors: true
+
+- name: Add upstream Yarn APT key from PGP
+  apt_key:
+    id: "{{ nodejs__yarn_upstream_key_id }}"
+    state: present
+    keyserver: "keyserver.pgp.com"
+  when: yarnmit_servers is failed
+  ignore_errors: true
+  changed_when: false
 
 - name: Configure upstream APT repository
   apt_repository:
     repo: "{{ nodejs__upstream_repository }}"
     state: present
     update_cache: true
+  register: nodejs_repo
+  retries: 3
+  delay: 60
+  until: nodejs_repo is succeeded
+
+- name: Add upstream Yarn APT repository
+  apt_repository:
+    repo: "{{ nodejs__yarn_upstream_repository }}"
+    state: present
+    update_cache: true
+  ignore_errors: true
+  changed_when: false
 
 - name: Gather the apt package facts
   package_facts:
@@ -53,6 +96,7 @@
 
 - name: Install node packages
   apt:
-    name: ["nodejs"]
+    name: ["nodejs", "yarn"]
     state: present
     autoremove: true
+  changed_when: false
