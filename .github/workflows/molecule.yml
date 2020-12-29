@@ -9,6 +9,7 @@ jobs:
         role:
           - users
           - redis
+          - postgresql
     steps:
       - name: Checkout branch
         run: |
