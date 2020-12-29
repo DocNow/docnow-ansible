@@ -1,0 +1,11 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: postgresql listening on port 5432
+    command: netstat -tunlp | grep ":5432 "
+    register: process
+    changed_when: false
+    failed_when:
+      - process | length == 0

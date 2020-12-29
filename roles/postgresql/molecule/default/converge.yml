@@ -1,0 +1,25 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+  become: true
+  pre_tasks:
+    - name: update cache
+      apt:
+        update_cache: true
+        cache_valid_time: 600
+  tasks:
+    - name: "Include postgresql"
+      include_role:
+        name: postgresql
+      vars:
+        postgresql_hba_entries:
+          - type: local
+            database: all
+            user: postgres
+            method: ident
+          - type: host
+            database: all
+            user: postgres
+            address: 127.0.0.1/32
+            method: ident

@@ -1,4 +1,5 @@
 ---
+# vars file for postgresql
 postgresql_packages:
   - "postgresql-{{ pg_version }}"
   - "postgresql-client-{{ pg_version }}"

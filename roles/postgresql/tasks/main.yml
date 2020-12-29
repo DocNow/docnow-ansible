@@ -1,6 +1,11 @@
 ---
 # tasks file for postgresql
-#
+- name: Postgresql | install postgresql prerequisite packages
+  apt:
+    name: 'gpg-agent'
+    state: present
+    update_cache: true
+
 - name: PostgreSQL | Make sure the CA certificates are available
   apt:
     pkg: ca-certificates
@@ -37,7 +42,7 @@
     state: directory
     owner: postgres
     group: postgres
-    mode: "700"
+    mode: 0700
 
 - name: postgresql | configure postgres
   lineinfile:
@@ -45,7 +50,7 @@
     regex: "^{{ item.name }} ="
     line: "{{ item.name }} = '{{ item.value }}'"
     create: yes
-    mode: "0644"
+    mode: 0644
   loop:
     - name: port
       value: "{{ postgresql_port }}"
@@ -75,7 +80,7 @@
     src: pg_hba.conf.j2
     dest: "{{ postgresql_conf_dir }}/pg_hba.conf"
     backup: yes
-    mode: "0644"
+    mode: 0644
   notify:
     - reload postgresql
 
@@ -83,7 +88,7 @@
   service:
     name: postgresql
     state: started
-    enabled: yes
+    enabled: true
 
 - name: postgresql | install psycopg2-binary
   pip:
