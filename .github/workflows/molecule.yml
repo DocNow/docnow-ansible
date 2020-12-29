@@ -10,6 +10,7 @@ jobs:
           - users
           - redis
           - postgresql
+          - nodejs
     steps:
       - name: Checkout branch
         run: |
