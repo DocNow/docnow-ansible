@@ -1,9 +1,11 @@
-{{ ansible_managed | comment }}
+# {{ ansible_managed | comment }}
 server {
-    listen       {{ nginx_port }};
+    listen {{ nginx_port }};
     server_name  _;
 
     root "{{ docnow_app_root }}/public";
+   # load balancer
+  passenger_set_header X-Forwarded-For $remote_addr;
 
     # Passenger
 	passenger_enabled on;
@@ -13,6 +15,4 @@ server {
 	passenger_startup_file dist/commands/server.js;
 	passenger_app_root "{{ docnow_app_root }}";
 
-    }
-
-
+}

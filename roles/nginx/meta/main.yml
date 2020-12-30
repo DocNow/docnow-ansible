@@ -1,12 +1,12 @@
 ---
 galaxy_info:
   author: Francis Kayiwa
-  description: nginx
+  description: passenger nginx role
   company: docnow
 
   license: BSD
 
-  min_ansible_version: 2.5
+  min_ansible_version: 2.9
 
   platforms:
     - name: Ubuntu

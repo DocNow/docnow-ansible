@@ -30,6 +30,7 @@
   template:
     src: docnow_app.conf.j2
     dest: /etc/nginx/sites-available/docnow_app.conf
+    mode: 0644
 
 - name: Nginx | make a symbolic link
   file:

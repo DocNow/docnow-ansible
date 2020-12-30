@@ -1,0 +1,14 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: test for docnow symlink
+    stat:
+      path: "/var/local/docnow_app/docnow/.env"
+    register: environment_path
+    failed_when:
+      - not environment_path.stat.exists
+      - not environment_path.stat.islnk
