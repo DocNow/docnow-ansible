@@ -28,21 +28,9 @@ installed.
 Run Docnow Locally on your own devices
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**On CentOS**
+Select your preferred Operating System to install Docnow Locally
 
-`Follow instructions here <docs/centOSREADME.md>`__
-
-**On MacOS**
-
-`Follow instructions here <docs/macOSREADME.md>`__
-
-**On Microsoft Windows**
-
-`Follow instructions here <docs/mswindowsREADME.md>`__
-
-**On Ubuntu**
-
-`Follow instructions here <docs/ubuntuREADME.md>`__
+`Follow instructions here <docs/docnow_locally.md>`__
 
 Run Docnow on hosted/paid service providers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
