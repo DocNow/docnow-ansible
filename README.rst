@@ -1,7 +1,7 @@
 Install the docnow application
 ==============================
 
-Ansible Installer the Docnow App
+Ansible Installer for the Docnow Appraisal Application
 
 |LICENSE|
 
@@ -9,7 +9,7 @@ Purpose
 -------
 
 The goal of this repository is to set up
-`docnow/docnow <https://github.com/docnow/docnow>`__ tool. You will need
+`docnow/docnow <https://github.com/docnow/docnow>`__ appraisal tool. You will need
 to install
 `Git <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>`__
 and clone this repository with the command below:
