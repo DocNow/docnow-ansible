@@ -7,7 +7,7 @@ architecture that does not require special software on the remote nodes that one
 will manage. We will be using Ansible to manage the process of installation and
 maintenance of the docnow application.
 
-# Process Flow
+## Process Flow
 
 Ansible works by configuring managed machines. In our case the remote server on
 a cloud provider. (Here on referred to as *managed node*). The process is run
@@ -19,6 +19,15 @@ information about the remote server using a very modular process ensures that
 the state of the remote state is what is defined in an ansible playbook.
 
 ## Prerequisites
+
+To install the Docnow App, you will need:
+
+* One Ansible Control Node: Select your platform below for steps to install
+   Ansible on your preferred platform. Ansible will need to be installed and
+   configured with SSH keys. The remote user connecting will need to have sudo
+   privileges on the remote host
+* A Remote Host: Select your [Cloud Provider](cloud_provider.md). The remote
+   server will have the public key from the control node in the `authorized_keys` file.
 
 ### Microsoft Windows
 

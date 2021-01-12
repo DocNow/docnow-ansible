@@ -39,6 +39,14 @@
     state: link
   notify:
     - restart nginx
+  become: true
+
+- name: Docnow | restart application
+  command: passenger-config restart-app --ignore-app-not-running --ignore-passenger-not-running .
+  args:
+    chdir: "{{ docnow_app_home }}"
+  changed_when: false
+  become: true
 
 - name: Nginx | start and enable nginx
   service:
