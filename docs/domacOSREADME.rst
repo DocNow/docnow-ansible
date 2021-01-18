@@ -211,7 +211,44 @@ key with when creating it. Do so, and hit Enter.
 ⚠️Note: Nothing will appear in the terminal as you enter your
 passphrase. This is intentional. You're still typing though.
 
-When you see the prompt root@your-droplet:~#, instead of
-your-name@your-mac ~ %, you've logged into your server.
+When you see the prompt
+
+.. code-block:: bash
+
+  root@your-droplet:~#
+
+instead of
+
+.. code-block:: bash
+
+  your-name@your-mac ~ %
+
+you've logged into your server. You are now ready to install the docnow software
+
 
 Installing the Docnow software
+==============================
+
+* Consider installing `homebrew <https://brew.sh/>`__
+
+* Most versions of macOS already have git installed. If you happen to find yours not to have it installed. We recommend using the homebrew option listed in the instructions to `install and configure git <https://github.com/git-guides/install-git>`__.
+
+.. code-block:: bash
+
+  your-name@your-mac ~ % brew install git
+
+* You can follow the instructions to install `Ansible <https://www.ansible.com/>`__. Othewise if you installed homebrew above install ansible via
+
+.. code-block:: bash
+
+  your-name@your-mac ~ % brew install ansible
+
+* Edit the `hosts.example` file in the cloned docnow-ansible repository. Replace the `1.2.3.4` in the file with your DigitalOcean Droplet IP address above. Make a copy of the file and name it `hosts`
+
+* You can now run:
+
+.. code-block:: bash
+
+  your-name@your-mac ~ % ansible-playbook -i hosts playbooks/do_install.yml
+
+* When your playbook runs you will be able to access your docnow application the the DigitalOcean IP address above. Point your browser to http://1.2.3.4 (substituting the 1.2.3.4 with your DigitalOcean IP address)
