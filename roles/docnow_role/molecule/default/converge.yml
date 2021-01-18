@@ -14,6 +14,13 @@
     - db_name: "docnow_dev"
     - node_env: "production"
     - redis_host: "127.0.0.1"
+    - docnow_user: "docnow"
+    - users_group_list:
+      - name: "{{ docnow_user | default(docnow) }}"
+    - users_user_list:
+      - name: "{{ docnow_user | default(docnow) }}"
+        comment: Docnow User
+        sudo_options: "ALL=(ALL) NOPASSWD: ALL"
     - docnow_app_root: "/var/local/docnow_app/docnow/"
   tasks:
     - name: "Include postgesql"

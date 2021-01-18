@@ -7,13 +7,26 @@
     dest: "{{ docnow_app_home }}/docnow"
     clone: true
     update: true
+    force: true
+  changed_when: false
   become: true
+
+- name: Docnow | change permissions
+  file:
+    path: "{{ docnow_app_home }}/docnow"
+    state: directory
+    recurse: true
+    owner: "{{ docnow_user | default(docnow) }}"
+    group: "{{ docnow_user | default(docnow) }}"
+    mode: 0755
+  changed_when: false
 
 - name: Docnow | install node environment settings
   template:
     src: env.production.j2
     dest: "{{ docnow_app_home }}/docnow/.env.production"
     mode: 0644
+  changed_when: false
 
 - name: Docnow | Symbolic Link
   file:
@@ -33,9 +46,20 @@
     chdir: "{{ docnow_app_home }}/docnow"
   changed_when: false
   become: true
+  become_user: "{{ docnow_user }}"
 
 - name: Docnow | prune modules
   command: npm prune --production
   args:
     chdir: "{{ docnow_app_home }}/docnow"
   changed_when: false
+  become: true
+  become_user: "{{ docnow_user }}"
+
+- name: Docnow | webpack installation
+  command: npm install --save-dev webpack-dev-middleware webpack-hot-middleware
+  args:
+    chdir: "{{ docnow_app_home }}/docnow"
+  changed_when: false
+  become: true
+  become_user: "{{ docnow_user }}"
