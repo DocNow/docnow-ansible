@@ -1,0 +1,8 @@
+---
+- hosts: digitaloceanvm
+  remote_user: root
+  become: true
+  vars_files:
+    - ../group_vars/do/main.yml
+  roles:
+    - role: ../roles/nginx
