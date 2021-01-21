@@ -140,7 +140,7 @@ API.)
 **Create an account**
 
 To begin, sign up for a DigitalOcean account here:
-https://cloud.digitalocean.com/registrations/new
+https://m.do.co/c/75deb60136ce (this will give you US $25 credit)
 
 Provide them with your billing information.
 
@@ -152,6 +152,10 @@ crypto and cash.
 
 Use **only** the authenticator app (HOTP) option, and not SMS-based
 authentication: https://cloud.digitalocean.com/settings/security
+
+.. image:: images/hopt-sms.png
+
+.. image:: images/hopt-auth.png
 
 Droplet creation (image & size)
 ===============================
@@ -243,7 +247,15 @@ Installing the Docnow software
 
   your-name@your-mac ~ % brew install ansible
 
-* Edit the `hosts.example` file in the cloned docnow-ansible repository. Replace the `1.2.3.4` in the file with your DigitalOcean Droplet IP address above. Make a copy of the file and name it `hosts`
+* Copy and edit the `hosts.example` and `group_vars/do/main.ymland `group_vars/do/main.yml.example` files in the newly cloned docnow-ansible repository by doing the following:
+
+.. code-block:: bash
+
+  your-name@your-mac ~ % cd docnow-ansible
+  your-name@your-mac ~ % cp hosts.example hosts
+  your-name@your-mac ~ % cp group_vars/do/main.yml.example group_vars/do/main.yml
+
+* Using a programmers' editor like (`Textmate <https://macromates.com>`__, `Sublime <http://sublimetext.com>`__, etc.,) edit the `hosts` file. Replace the `1.2.3.4` with the IP address from your DigitalOcean Droplet. Examine the `group_vars/do/main.yml` file and edit it accordingly and to suit your needs
 
 * You can now run:
 
