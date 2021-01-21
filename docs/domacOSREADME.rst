@@ -153,6 +153,10 @@ crypto and cash.
 Use **only** the authenticator app (HOTP) option, and not SMS-based
 authentication: https://cloud.digitalocean.com/settings/security
 
+.. image:: images/hopt-sms.png
+
+.. image:: images/hopt-auth.png
+
 Droplet creation (image & size)
 ===============================
 
