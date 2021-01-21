@@ -1,5 +1,5 @@
 ---
-docnow_user: "docnow"
+docnow_user: "docnow"  # the docnow user
 users_group_list:
   - name: "{{ docnow_user | default(docnow) }}"
 
@@ -35,9 +35,9 @@ postgresql_hba_entries:
     address: 127.0.0.1/32
     method: md5
 postgresql_databases:
-  - name: "docnow_dev"
+  - name: "docnow_dev" # the docnow database user to be created
 postgresql_users:
-  - name: "docnow"
+  - name: "docnow"  # the database user
     password: "Change_me"
     db: "docnow_dev"
     priv: "ALL"
@@ -50,4 +50,4 @@ db_name: "docnow_dev"
 node_env: "production"
 redis_host: "127.0.0.1"
 
-docnow_app_root: "/var/local/docnow_app/docnow/"
+docnow_app_root: "/var/local/docnow_app/docnow/" # location of the docnow app
