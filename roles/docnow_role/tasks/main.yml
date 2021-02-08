@@ -3,7 +3,7 @@
 - name: Docnow | Clone Docnow appraisal app
   git:
     repo: "https://github.com/docnow/docnow.git"
-    version: 'master'
+    version: 'main'
     dest: "{{ docnow_app_home }}/docnow"
     clone: true
     update: true

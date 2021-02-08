@@ -10,7 +10,7 @@ users_user_list:
 
 users_create_home: true
 postgresql_port: 5432
-postgresql_listen_addresses: 127.0.0.1
+postgresql_listen_addresses: 127.0.0.1  # the database listens server is local
 postgresql_unix_socket_directories: /var/run/postgresql
 postgresql_max_wal_size: 1GB
 postgresql_min_wal_size: 80MB
@@ -24,6 +24,10 @@ postgresql_hba_entries:
     database: all
     user: postgres
     method: ident
+  - type: local
+    database: all
+    user: docnow
+    method: peer
   - type: host
     database: all
     user: postgres
@@ -33,11 +37,11 @@ postgresql_hba_entries:
     database: docnow_dev
     user: docnow
     address: 127.0.0.1/32
-    method: md5
+    method: ident  # connection for the docnow database ok for local docnow user
 postgresql_databases:
-  - name: "docnow_dev" # the docnow database user to be created
+  - name: "docnow_dev"
 postgresql_users:
-  - name: "docnow"  # the database user
+  - name: "docnow"
     password: "Change_me"
     db: "docnow_dev"
     priv: "ALL"
@@ -50,4 +54,4 @@ db_name: "docnow_dev"
 node_env: "production"
 redis_host: "127.0.0.1"
 
-docnow_app_root: "/var/local/docnow_app/docnow/" # location of the docnow app
+docnow_app_root: "/var/local/docnow_app/docnow/"  # location of application
