@@ -1,5 +1,6 @@
 ---
 docnow_user: "docnow"  # the docnow user
+docnow_version: "main"  # the version of docnow you want to run
 users_group_list:
   - name: "{{ docnow_user | default(docnow) }}"
 
@@ -34,10 +35,10 @@ postgresql_hba_entries:
     address: 127.0.0.1/32
     method: ident
   - type: host
-    database: docnow_dev
+    database: all
     user: docnow
     address: 127.0.0.1/32
-    method: ident  # connection for the docnow database ok for local docnow user
+    method: md5  # connection for the docnow database ok for local docnow user
 postgresql_databases:
   - name: "docnow_dev"
 postgresql_users:

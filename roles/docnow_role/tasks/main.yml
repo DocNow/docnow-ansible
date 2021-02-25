@@ -3,7 +3,7 @@
 - name: Docnow | Clone Docnow appraisal app
   git:
     repo: "https://github.com/docnow/docnow.git"
-    version: 'main'
+    version: "{{ docnow_version }}"
     dest: "{{ docnow_app_home }}/docnow"
     clone: true
     update: true
@@ -58,6 +58,14 @@
 
 - name: Docnow | webpack installation
   command: npm install --save-dev webpack-dev-middleware webpack-hot-middleware
+  args:
+    chdir: "{{ docnow_app_home }}/docnow"
+  changed_when: false
+  become: true
+  become_user: "{{ docnow_user }}"
+
+- name: Docnow | migrate and createdb
+  command: npm run migrate
   args:
     chdir: "{{ docnow_app_home }}/docnow"
   changed_when: false
