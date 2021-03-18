@@ -1,4 +1,6 @@
 ---
+letsencrypt_email: yourmail@example.com
+domain_name: example.com
 docnow_user: "docnow"
 docnow_version: "v0.1.1"
 users_group_list:
