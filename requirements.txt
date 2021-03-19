@@ -1,52 +1,55 @@
--i https://pypi.org/simple
-ansible-base==2.10.4; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
+-i https://pypi.org/simple/
+ansible-base==2.10.7
 ansible-lint==4.3.7
 ansible==2.10.4
-arrow==0.17.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
-bcrypt==3.2.0; python_version >= '3.6'
+arrow==1.0.3
+bcrypt==3.2.0
 binaryornot==0.4.4
-cerberus==1.3.2; python_version >= '2.7'
+cerberus==1.3.2
 certifi==2020.12.5
-cffi==1.14.4
-chardet==4.0.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
+cffi==1.14.5
+chardet==4.0.0
 click-completion==0.5.2
 click-help-colors==0.9
-click==7.1.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
-colorama==0.4.4; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
+click==7.1.2
+colorama==0.4.4
 commonmark==0.9.1
-cookiecutter==1.7.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
-cryptography==3.3.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'
-docker==4.4.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
-enrich==1.2.6; python_version >= '3.6'
-gitdb==4.0.5; python_version >= '3.4'
+cookiecutter==1.7.2
+cryptography==3.4.6
+distro==1.5.0
+docker==4.4.4
+enrich==1.2.6
+gitdb==4.0.5
 gitpython==3.1.11
-idna==2.10; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
+idna==2.10
 jinja2-time==0.2.0
-jinja2==2.11.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
-markupsafe==1.1.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-molecule-docker==0.2.4
+jinja2==2.11.3
+markupsafe==1.1.1
+molecule-docker==0.3.3
 molecule[docker]==3.2.0
-packaging==20.8; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
+packaging==20.9
 paramiko==2.7.2
 pathspec==0.8.1
-pluggy==0.13.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-poyo==0.5.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-pycparser==2.20; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-pygments==2.7.3; python_version >= '3.5'
-pynacl==1.4.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-pyparsing==2.4.7; python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'
-python-dateutil==2.8.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
+pluggy==0.13.1
+poyo==0.5.0
+pycparser==2.20
+pygments==2.8.1
+pynacl==1.4.0
+pyparsing==2.4.7
+python-dateutil==2.8.1
 python-slugify==4.0.1
-pyyaml==5.3.1
-requests==2.25.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
-rich==9.5.1; python_version >= '3.6' and python_version < '4.0'
-ruamel.yaml==0.16.12; python_version >= '3.7'
-shellingham==1.3.2; python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'
-six==1.15.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-smmap==3.0.4; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-subprocess-tee==0.2.0; python_version >= '3.6'
+pyyaml==5.4.1
+requests==2.25.1
+rich==9.13.0
+ruamel.yaml.clib==0.2.2 ; platform_python_implementation == 'CPython' and python_version < '3.10'
+ruamel.yaml==0.16.13 ; python_version >= '3.7'
+selinux==0.2.1 ; sys_platform == 'linux'
+shellingham==1.4.0
+six==1.15.0
+smmap==3.0.5
+subprocess-tee==0.2.0
 text-unidecode==1.3
 typing-extensions==3.7.4.3
-urllib3==1.26.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'
-websocket-client==0.57.0
+urllib3==1.26.3
+websocket-client==0.58.0
 yamllint==1.25.0
