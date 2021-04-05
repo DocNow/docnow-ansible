@@ -1,3 +1,5 @@
+# Cupertino cooties
+.DS_Store
 # private keys
 docnow_key
 docnow_key.pub
@@ -5,3 +7,6 @@ docnow_key.pub
 hosts
 # do not commit digital ocean var files
 group_vars/do/main.yml
+# do not commit google cloud
+group_vars/docnow/dev.yml
+playbooks/docnow_demo.yml

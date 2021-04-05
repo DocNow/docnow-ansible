@@ -1,5 +1,10 @@
 ---
 # tasks file for docnow_role
+- name: Docnow | remove any existing implementation
+  file:
+    path: "{{ docnow_app_home }}/docnow/"
+    state: absent
+
 - name: Docnow | Clone Docnow appraisal app
   git:
     repo: "https://github.com/docnow/docnow.git"
@@ -8,7 +13,6 @@
     clone: true
     update: true
     force: true
-  changed_when: false
   become: true
 
 - name: Docnow | change permissions

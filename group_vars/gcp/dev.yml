@@ -1,8 +1,6 @@
 ---
-letsencrypt_email: yourmail@example.com
-domain_name: example.com
-docnow_user: "docnow"  # the docnow user
-docnow_version: "main"  # the version of docnow you want to run
+docnow_user: "docnow"
+docnow_version: "v0.1.1"
 users_group_list:
   - name: "{{ docnow_user | default(docnow) }}"
 
@@ -11,9 +9,8 @@ users_user_list:
     comment: Docnow User
     sudo_options: "ALL=(ALL) NOPASSWD: ALL"
 
-users_create_home: true
 postgresql_port: 5432
-postgresql_listen_addresses: 127.0.0.1  # the database listens server is local
+postgresql_listen_addresses: 127.0.0.1
 postgresql_unix_socket_directories: /var/run/postgresql
 postgresql_max_wal_size: 1GB
 postgresql_min_wal_size: 80MB
@@ -27,28 +24,24 @@ postgresql_hba_entries:
     database: all
     user: postgres
     method: ident
-  - type: local
-    database: all
-    user: docnow
-    method: peer
   - type: host
     database: all
     user: postgres
     address: 127.0.0.1/32
     method: ident
   - type: host
-    database: all
+    database: docnow_dev
     user: docnow
     address: 127.0.0.1/32
-    method: md5  # connection for the docnow database ok for local docnow user
-postgresql_databases:
-  - name: "docnow_dev"
+    method: md5
 postgresql_users:
   - name: "docnow"
     password: "Change_me"
     db: "docnow_dev"
     priv: "ALL"
     role_attr_flags: "SUPERUSER"
+postgresql_databases:
+  - name: "docnow_dev"
 
 db_hostname: "127.0.0.1"
 db_username: "docnow"
@@ -57,4 +50,4 @@ db_name: "docnow_dev"
 node_env: "production"
 redis_host: "127.0.0.1"
 
-docnow_app_root: "/var/local/docnow_app/docnow/"  # location of application
+docnow_app_root: "/var/local/docnow_app/docnow/"

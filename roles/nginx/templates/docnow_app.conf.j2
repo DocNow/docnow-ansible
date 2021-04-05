@@ -1,15 +1,19 @@
 # {{ ansible_managed | comment }}
 server {
-    listen {{ nginx_port }};
-    server_name  _;
+        listen {{ nginx_port }};
+        server_name  {{ domain_name }};
 
-    root "{{ docnow_app_root }}/public";
-   # load balancer
-  passenger_set_header X-Forwarded-For $remote_addr;
+        # letsencrypt config
+        location /.well-known/acme-challenge {
+                root /var/www/letsencrypt;
+                try_files $uri $uri/ =404;
+        }
+        root "{{ docnow_app_root }}/public";
 
-    # Passenger
+        # Passenger
 	passenger_enabled on;
-
+        # load balancer
+        passenger_set_header X-Forwarded-For $remote_addr;
 	# Nodejs
 	passenger_app_type node;
 	passenger_startup_file dist/commands/server.js;

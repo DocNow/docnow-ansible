@@ -49,7 +49,7 @@
     path: "{{ postgresql_conf_dir }}/postgresql.conf"
     regex: "^{{ item.name }} ="
     line: "{{ item.name }} = '{{ item.value }}'"
-    create: yes
+    create: true
     mode: 0644
   loop:
     - name: port

@@ -3,27 +3,45 @@
 - name: acme_le | add certbot ppa
   apt_repository:
     repo: ppa:certbot/certbot
-  when: ansible_os_family == Ubuntu
 
-- name: acme_le | Add epel repository
-  yum_repository:
-    name: epel
-    description: EPEL YUM repo
-    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
-  when: ansible_os_family == Redhat
-
-- name: acme_le | install certbot Ubuntu
+- name: acme_le | install certbot
   apt:
     name: ["certbot", "python-certbot-nginx"]
     state: present
-    update_cache: true
-  when: ansible_os_family == Ubuntu
 
-- name: acme_le | install certbot Centos
-  yum:
-    name: ["certbot", "python2-certbot-nginx"]
-    state: present
-  when: ansible_os_family == Redhat
+- name: acme_le | create letsencrypt directory
+  file:
+    name: "/var/www/letsencrypt"
+    state: directory
+    mode: 0644
 
-- include_tasks: manage.yml
-- include_tasks: test.yml
+- name: acme_le | Create letsencrypt certificate
+  shell: certbot certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain_name }}
+  args:
+    creates: /etc/letsencrypt/archive/{{ domain_name }}
+
+- name: acme_le | Generate dhparams
+  shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
+  args:
+    creates: /etc/nginx/dhparams.pem
+
+- name: acme_le | install LE requests
+  template:
+    src: docnow_le_nginx.conf.j2
+    dest: "/etc/nginx/sites-available/docnow_le_nginx.conf"
+
+- name: acme_le | remove docnow non-https site
+  file:
+    name: /etc/nginx/sites-enabled/docnow_app
+    state: absent
+
+- name: acme_le | create symbolic link
+  file:
+    src: "/etc/nginx/sites-available/docnow_le_nginx.conf"
+    dest: "/etc/nginx/sites-enabled/docnow_le_nginx.conf"
+    state: link
+
+- name: acme_le | nginx to activate docnow site
+  service:
+    name: nginx
+    state: restarted
