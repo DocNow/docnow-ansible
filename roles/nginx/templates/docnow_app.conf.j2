@@ -8,5 +8,15 @@ server {
                 root /var/www/letsencrypt;
                 try_files $uri $uri/ =404;
         }
+        root "{{ docnow_app_root }}/public";
+
+        # Passenger
+	passenger_enabled on;
+        # load balancer
+        passenger_set_header X-Forwarded-For $remote_addr;
+	# Nodejs
+	passenger_app_type node;
+	passenger_startup_file dist/commands/server.js;
+	passenger_app_root "{{ docnow_app_root }}";
 
 }

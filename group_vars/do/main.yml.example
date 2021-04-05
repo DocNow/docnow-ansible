@@ -1,4 +1,6 @@
 ---
+letsencrypt_email: yourmail@example.com
+domain_name: example.com
 docnow_user: "docnow"  # the docnow user
 docnow_version: "main"  # the version of docnow you want to run
 users_group_list:
