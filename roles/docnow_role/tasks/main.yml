@@ -68,6 +68,26 @@
   become: true
   become_user: "{{ docnow_user }}"
 
+- name: Docnow | stream-loader configuration
+  template:
+    src: stream-loader.service.j2
+    dest: "/etc/systemd/system/stream-loader.service"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart stream-loader
+
+- name: Docnow | url-fetcher configuration
+  template:
+    src: url-fetcher.service.j2
+    dest: "/etc/systemd/system/url-fetcher.service"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart url-fetcher
+
 - name: Docnow | migrate and createdb
   command: npm run migrate
   args:

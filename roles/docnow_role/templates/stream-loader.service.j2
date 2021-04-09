@@ -1,0 +1,10 @@
+[Unit]
+Description=DocNow Stream Loader
+
+[Service]
+User={{ docnow_user }}
+WorkingDirectory={{ docnow_app_root }}
+ExecStart=npm run stream-loader
+
+[Install]
+WantedBy=multi-user.target

@@ -1,2 +1,14 @@
 ---
 # handlers file for docnow_role
+
+- name: restart url-fetcher
+  service:
+    name: url-fetcher
+    state: restarted
+    enabled: yes
+
+- name: restart stream-loader
+  service:
+    name: stream-loader
+    state: restarted
+    enabled: yes
