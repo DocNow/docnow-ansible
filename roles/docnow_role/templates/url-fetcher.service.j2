@@ -4,7 +4,7 @@ Description=DocNow Stream Loader
 [Service]
 User={{ docnow_user }}
 WorkingDirectory={{ docnow_app_root }}
-ExecStart=npm run url-fetcher
+ExecStart=/usr/bin/npm run url-fetcher
 
 [Install]
 WantedBy=multi-user.target
