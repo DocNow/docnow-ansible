@@ -1,0 +1,8 @@
+---
+- hosts: docnow_demo
+  remote_user: pulsys
+  become: true
+  vars_files:
+    - ../group_vars/docnow/dev.yml
+  roles:
+    - role: ../roles/acme_le

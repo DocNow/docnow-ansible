@@ -9,4 +9,3 @@ hosts
 group_vars/do/main.yml
 # do not commit google cloud
 group_vars/docnow/dev.yml
-playbooks/docnow_demo.yml
