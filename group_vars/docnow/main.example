@@ -11,7 +11,7 @@ users_user_list:
     comment: Docnow User
     sudo_options: "ALL=(ALL) NOPASSWD: ALL"
 
-ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q user@bastion-ip-host"'
+postgresql_is_local: false
 postgresql_port: 5432
 postgresql_listen_addresses: 127.0.0.1
 postgresql_unix_socket_directories: /var/run/postgresql
