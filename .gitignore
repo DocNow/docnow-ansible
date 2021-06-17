@@ -3,9 +3,5 @@
 # private keys
 docnow_key
 docnow_key.pub
-# do not commit hosts file
-hosts
 # do not commit digital ocean var files
 group_vars/do/main.yml
-# do not commit google cloud
-group_vars/docnow/dev.yml
