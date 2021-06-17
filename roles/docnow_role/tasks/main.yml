@@ -88,6 +88,21 @@
   notify:
     - restart url-fetcher
 
+- name: Stop app (before db migration)
+  service: name=nginx state=stopped
+  notify:
+    - restart nginx
+
+- name: Stop stream-loader (before db migration)
+  service: name=stream-loader state=stopped
+  notify:
+    - restart stream-loader
+
+- name: Stop url-fetcher (before db migration)
+  service: name=url-fetcher state=stopped
+  notify:
+    - restart url-fetcher
+
 - name: Docnow | migrate and createdb
   command: npm run migrate
   args:
