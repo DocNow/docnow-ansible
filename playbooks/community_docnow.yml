@@ -1,0 +1,8 @@
+---
+- hosts: community
+  remote_user: pulsys
+  become: true
+  vars_files:
+    - ../group_vars/docnow/prod.yml
+  roles:
+    - role: ../roles/acme_le
