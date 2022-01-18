@@ -64,15 +64,15 @@
   become: true
   become_user: "{{ docnow_user }}"
 
-- name: Docnow | stream-loader configuration
+- name: Docnow | tweet-loader configuration
   template:
-    src: stream-loader.service.j2
-    dest: "/etc/systemd/system/stream-loader.service"
+    src: tweet-loader.service.j2
+    dest: "/etc/systemd/system/tweet-loader.service"
     owner: root
     group: root
     mode: 0644
   notify:
-    - restart stream-loader
+    - restart tweet-loader
 
 - name: Docnow | url-fetcher configuration
   template:
@@ -89,10 +89,10 @@
   notify:
     - restart nginx
 
-- name: Stop stream-loader (before db migration)
-  service: name=stream-loader state=stopped
+- name: Stop tweet-loader (before db migration)
+  service: name=tweet-loader state=stopped
   notify:
-    - restart stream-loader
+    - restart tweet-loader
 
 - name: Stop url-fetcher (before db migration)
   service: name=url-fetcher state=stopped

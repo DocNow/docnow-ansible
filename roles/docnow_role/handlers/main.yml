@@ -7,8 +7,8 @@
     state: restarted
     enabled: yes
 
-- name: restart stream-loader
+- name: restart tweet-loader
   service:
-    name: stream-loader
+    name: tweet-loader
     state: restarted
     enabled: yes

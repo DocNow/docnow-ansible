@@ -1,10 +1,10 @@
 [Unit]
-Description=DocNow Stream Loader
+Description=DocNow Tweet Loader
 
 [Service]
 User={{ docnow_user }}
 WorkingDirectory={{ docnow_app_root }}
-ExecStart=/usr/bin/npm run stream-loader
+ExecStart=/usr/bin/npm run tweet-loader
 
 [Install]
 WantedBy=multi-user.target
