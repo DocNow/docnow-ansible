@@ -5,6 +5,7 @@ Description=DocNow Tweet Loader
 User={{ docnow_user }}
 WorkingDirectory={{ docnow_app_root }}
 ExecStart=/usr/bin/npm run tweet-loader
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
