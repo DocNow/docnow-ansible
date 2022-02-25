@@ -12,5 +12,5 @@
     - name: tell everyone on slack you ran an ansible playbook
       slack:
         token: "{{ vault_docnow_slack_token }}"
-        msg: "{{ inventory_hostname }} completed"
+        msg: "smoketest deployed"
         channel: #development
