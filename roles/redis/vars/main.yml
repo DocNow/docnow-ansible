@@ -1,6 +1,6 @@
 ---
 # vars file for redis
-redis_packages: "redis-server"
+redis_packages: "redis"
 redis_configuration_directory: "/etc/redis"
 redis_configuration_file: "redis.conf"
 redis_owner: "redis"
