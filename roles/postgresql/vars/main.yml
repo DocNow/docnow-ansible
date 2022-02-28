@@ -3,6 +3,7 @@
 postgresql_packages:
   - "postgresql-{{ pg_version }}"
   - "postgresql-client-{{ pg_version }}"
+  -  postgresql-client-common
 
 postgresql_dir: "/var/lib/postgresql/{{ pg_version }}"
 postgresql_conf_dir: "/etc/postgresql/{{ pg_version }}/main"
