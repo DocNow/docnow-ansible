@@ -6,7 +6,7 @@
     update_cache: true
 
 - name: install redis
-  package:
+  apt:
     name: "{{ redis_packages }}"
     state: present
 
@@ -20,8 +20,16 @@
   notify:
     - restart redis
 
+- name: Set redis server pid file
+  lineinfile:
+    path: /etc/redis/redis.conf
+    regexp: "^pidfile"
+    line: "pidfile /var/run/redis/redis-server.pid"
+  notify:
+    - restart redis
+
 - name: start and enable redis
   service:
-    name: "{{ redis_service }}"
+    name: "redis-server"
     state: started
     enabled: true
