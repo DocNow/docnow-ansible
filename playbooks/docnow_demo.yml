@@ -14,3 +14,4 @@
         token: "{{ vault_docnow_slack_token }}"
         msg: "smoketest deployed"
         channel: #development
+      tags: deploy

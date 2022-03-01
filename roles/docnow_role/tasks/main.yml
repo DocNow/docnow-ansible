@@ -10,6 +10,7 @@
     update: true
     force: true
   become: true
+  tags: deploy
 
 - name: Docnow | change permissions
   file:
@@ -20,6 +21,7 @@
     group: "{{ docnow_user | default(docnow) }}"
     mode: 0755
   changed_when: false
+  tags: deploy
 
 - name: Docnow | install node environment settings
   template:
@@ -27,18 +29,21 @@
     dest: "{{ docnow_app_home }}/docnow/.env.production"
     mode: 0644
   changed_when: false
+  tags: deploy
 
 - name: Docnow | Symbolic Link
   file:
     src: "{{ docnow_app_home }}/docnow/.env.production"
     dest: "{{ docnow_app_home }}/docnow/.env"
     state: link
+  tags: deploy
 
 - name: Docnow | Symbolic Link for public
   file:
     src: "{{ docnow_app_home }}/docnow/userData"
     dest: "{{ docnow_app_home }}/docnow/public"
     state: link
+  tags: deploy
 
 - name: Docnow | install modules
   command: npm install --production
@@ -47,6 +52,7 @@
   changed_when: false
   become: true
   become_user: "{{ docnow_user }}"
+  tags: deploy
 
 - name: Docnow | prune modules
   command: npm prune --production
@@ -55,6 +61,7 @@
   changed_when: false
   become: true
   become_user: "{{ docnow_user }}"
+  tags: deploy
 
 - name: Docnow | webpack installation
   command: npm install --save-dev webpack-dev-middleware webpack-hot-middleware
@@ -63,6 +70,7 @@
   changed_when: false
   become: true
   become_user: "{{ docnow_user }}"
+  tags: deploy
 
 - name: Docnow | tweet-loader configuration
   template:
@@ -73,6 +81,7 @@
     mode: 0644
   notify:
     - restart tweet-loader
+  tags: deploy
 
 - name: Docnow | url-fetcher configuration
   template:
@@ -83,21 +92,29 @@
     mode: 0644
   notify:
     - restart url-fetcher
+  tags: deploy
 
 - name: Stop app (before db migration)
-  service: name=nginx state=stopped
+  service:
+    name: nginx
+    state: stopped
   notify:
     - restart nginx
+  tags: deploy
 
 - name: Stop tweet-loader (before db migration)
   service: name=tweet-loader state=stopped
   notify:
     - restart tweet-loader
+  tags: deploy
 
 - name: Stop url-fetcher (before db migration)
-  service: name=url-fetcher state=stopped
+  service:
+    name: url-fetcher
+    state: stopped
   notify:
     - restart url-fetcher
+  tags: deploy
 
 - name: Docnow | migrate and createdb
   command: npm run migrate
@@ -106,3 +123,4 @@
   changed_when: false
   become: true
   become_user: "{{ docnow_user }}"
+  tags: deploy
