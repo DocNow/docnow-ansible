@@ -1,2 +1,4 @@
 [digitaloceanvm]
 1.2.3.4 # (modify this with your Digital Ocean Provider IP address)
+[aws]
+1.2.2.4 # (modify this with your AWS Lightsail Provider IP address)
