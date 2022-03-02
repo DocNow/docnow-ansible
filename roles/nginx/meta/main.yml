@@ -16,5 +16,4 @@ galaxy_info:
       versions:
         - 7
 
-dependencies:
-  - role: docnow_role
+dependencies: []

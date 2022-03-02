@@ -17,4 +17,4 @@ galaxy_info:
         - 7
 
 dependencies:
-  - role: nginx
+  - role: docnow_role

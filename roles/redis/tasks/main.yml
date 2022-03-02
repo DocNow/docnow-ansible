@@ -10,24 +10,6 @@
     name: "{{ redis_packages }}"
     state: present
 
-- name: configure redis
-  template:
-    src: "redis-conf.j2"
-    dest: "{{ redis_configuration_directory }}/{{ redis_configuration_file }}"
-    owner: "{{ redis_owner }}"
-    group: "{{ redis_group }}"
-    mode: "{{ redis_mode }}"
-  notify:
-    - restart redis
-
-- name: Set redis server pid file
-  lineinfile:
-    path: /etc/redis/redis.conf
-    regexp: "^pidfile"
-    line: "pidfile /var/run/redis/redis-server.pid"
-  notify:
-    - restart redis
-
 - name: start and enable redis
   service:
     name: "redis-server"

@@ -21,3 +21,4 @@ dependencies:
   - role: redis
   - role: postgresql
   - role: users
+  - role: nginx
