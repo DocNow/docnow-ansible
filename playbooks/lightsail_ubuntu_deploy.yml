@@ -1,0 +1,9 @@
+---
+- hosts: aws
+  remote_user: ubuntu
+  become: true
+  vars_files:
+    - ../group_vars/aws/vars.yml
+  tasks:
+  roles:
+    - role: roles/docnow_role
