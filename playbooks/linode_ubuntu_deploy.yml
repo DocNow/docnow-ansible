@@ -1,0 +1,11 @@
+---
+- hosts: linode
+  remote_user: root
+  become: true
+  vars:
+    ansible_ssh_private_key_file: "~/.ssh/docnow_id_rsa"
+  vars_files:
+    - ../group_vars/linode/vars.yml
+  tasks:
+  roles:
+    - role: roles/docnow_role
