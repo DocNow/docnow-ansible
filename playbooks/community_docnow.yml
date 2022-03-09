@@ -1,8 +1,16 @@
 ---
-- hosts: community
+- name: deploy community docnow
+  hosts: community
   remote_user: pulsys
   become: true
   vars_files:
     - ../group_vars/docnow/prod.yml
+    - ../group_vars/docnow/vault.yml
   roles:
     - role: ../roles/acme_le
+  post_tasks:
+    - name: tell everyone on slack you ran an ansible playbook
+      slack:
+        token: "{{ vault_docnow_slack_token }}"
+        msg: Ansible ran `{{ ansible_play_name }}` on {{ inventory_hostname }}
+        channel: #development

@@ -1,5 +1,6 @@
 ---
-- hosts: docnow_demo
+- name: deploy smoketest
+  hosts: docnow_demo
   remote_user: pulsys
   become: true
   vars_files:
@@ -12,6 +13,6 @@
     - name: tell everyone on slack you ran an ansible playbook
       slack:
         token: "{{ vault_docnow_slack_token }}"
-        msg: "smoketest deployed"
+        msg: Ansible ran `{{ ansible_play_name }}` on {{ inventory_hostname }}
         channel: #development
       tags: deploy
