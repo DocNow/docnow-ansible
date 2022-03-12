@@ -42,6 +42,10 @@ server {
         ssl_prefer_server_ciphers on;
 
         root "{{ docnow_app_root }}/public";
+        # bots management
+
+        include /etc/nginx/bots.d/ddos.conf;
+ 	include /etc/nginx/bots.d/blockbots.conf;
 
         # Passenger
 	passenger_enabled on;
