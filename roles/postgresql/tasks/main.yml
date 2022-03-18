@@ -1,10 +1,9 @@
 ---
 # tasks file for postgresql
-- name: Postgresql | install postgresql prerequisite packages
-  apt:
-    name: 'gpg-agent'
+- name: PostgreSQL | Add PostgreSQL repository apt-key
+  apt_key:
+    url: "{{ postgresql_apt_key_url }}"
     state: present
-    update_cache: true
 
 - name: PostgreSQL | Make sure the CA certificates are available
   apt:
