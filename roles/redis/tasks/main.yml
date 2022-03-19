@@ -1,12 +1,17 @@
 ---
 # tasks file for redis
-- name: Add nginx stable repository from PPA and install its signing key on Debian target
+- name: install gnu privacy guard
+  ansible.builtin.apt:
+    name: "dirmngr"
+    state: present
+
+- name: Add from PPA and install its signing key on Debian target
   ansible.builtin.apt_repository:
     repo: "ppa:redislabs/redis"
     update_cache: true
 
 - name: install redis
-  apt:
+  ansible.builtin.apt:
     name: "{{ redis_packages }}"
     state: present
 
@@ -15,3 +20,5 @@
     name: "redis-server"
     state: started
     enabled: true
+  when:
+    - running_on_server
