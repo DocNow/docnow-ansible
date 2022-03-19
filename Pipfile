@@ -10,9 +10,9 @@ pylint = "*"
 yamllint = "*"
 gitpython = "*"
 pycrypto = "*"
-ansible = "<=4.2.0"
-molecule = {extras = ["docker"], version = "<=3.6.1"}
-ansible-lint = "<=5.4.0"
+ansible = ">=5.4.0"
+molecule = {extras = ["docker"], version = ">=3.6.1"}
+ansible-lint = ">=5.4.0"
 
 [requires]
 python_version = "3.10"
