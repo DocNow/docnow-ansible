@@ -1,33 +1,33 @@
 ---
 - name: Converge
   hosts: all
-  become: true
-  gather_facts: true
 
   pre_tasks:
     - name: update cache
       apt:
         update_cache: true
         cache_valid_time: 600
+  tasks:
+    - name: "users"
+      include_role:
+        name: "users"
+      vars:
+        users_group_list:
+          - name: docnow
+            gid: 1024
+          - name: users
+          - name: notgroup
+            state: absent
 
-  roles:
-    - role: users
-      users_group_list:
-        - name: docnow
-          gid: 1024
-        - name: users
-        - name: notgroup
-          state: absent
-
-      users_user_list:
-        - name: root
-          cron_allow: true
-        - name: docnow
-          comment: Docnow User
-          uid: 1024
-          group: docnow
-          groups: users
-          cron_allow: true
-          sudo_options: "ALL=(ALL) NOPASSWD: ALL"
-        - name: notuser
-          state: absent
+        users_user_list:
+          - name: root
+            cron_allow: true
+          - name: docnow
+            comment: Docnow User
+            uid: 1024
+            group: docnow
+            groups: users
+            cron_allow: true
+            sudo_options: "ALL=(ALL) NOPASSWD: ALL"
+          - name: notuser
+            state: absent

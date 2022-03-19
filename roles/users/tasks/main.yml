@@ -8,7 +8,7 @@
     update_cache: true
 
 - name: user | loop over users_group_list
-  include: group.yml
+  include_tasks: group.yml
   loop: "{{ users_group_list }}"
   loop_control:
     label: "{{ group.name }}"
@@ -17,7 +17,7 @@
     - users_group_list is defined
 
 - name: user | loop over users_user_list
-  include: user.yml
+  include_tasks: user.yml
   loop: "{{ users_user_list }}"
   loop_control:
     label: "{{ user.name }}"

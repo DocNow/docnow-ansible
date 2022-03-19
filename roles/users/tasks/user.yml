@@ -96,12 +96,12 @@
     - user.manage_ssh_key
 
 - name: loop over authorized_key for {{ user.name }}
-  include: user_authorized_key.yml
+  include_tasks: user_authorized_key.yml
   when:
     - user.authorized_key is defined
 
 - name: loop over  authorized_keys for {{ user.name }}
-  include: user_authorized_key.yml
+  include_tasks: user_authorized_key.yml
   loop: "{{ user.authorized_keys }}"
   loop_control:
     label: "{{ user.name }}"
