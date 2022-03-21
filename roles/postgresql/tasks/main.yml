@@ -1,14 +1,15 @@
 ---
 # tasks file for postgresql
+- name: PostgreSQL | Make sure postgresql dependencies are available
+  apt:
+    name: "{{ postgresql_dependencies }}"
+    state: present
+
 - name: PostgreSQL | Add PostgreSQL repository apt-key
-  apt_key:
+  ansible.builtin.apt_key:
     url: "{{ postgresql_apt_key_url }}"
     state: present
 
-- name: PostgreSQL | Make sure the CA certificates are available
-  apt:
-    pkg: ca-certificates
-    state: present
 
 - name: Postgresql | Add PostgreSQL repository apt-key | apt
   apt_key:

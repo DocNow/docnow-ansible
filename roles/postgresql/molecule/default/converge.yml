@@ -2,6 +2,7 @@
 - name: Converge
   hosts: all
   vars:
+    - postgresql_is_local: true
   become: true
   pre_tasks:
     - name: update cache

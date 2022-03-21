@@ -1,5 +1,10 @@
 ---
 # vars file for postgresql
+#
+postgresql_dependencies:
+  - build-essential
+  - ca-certificates
+  - gpg-agent
 postgresql_packages:
   - "postgresql-{{ pg_version }}"
   - "postgresql-client-{{ pg_version }}"

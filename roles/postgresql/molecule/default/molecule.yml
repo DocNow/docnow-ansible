@@ -10,7 +10,7 @@ driver:
 platforms:
   - name: docnow-instance
     image: "geerlingguy/docker-ubuntu1804-ansible:latest"
-    command: /sbin/init
+    command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

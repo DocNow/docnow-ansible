@@ -1,8 +1,9 @@
 ---
 galaxy_info:
-  author: Francis Kayiwa
+  namespace: kayiwa
   description: postgresql role
   company: docnow
+  role_name: postgresql
 
   license: BSD
 
