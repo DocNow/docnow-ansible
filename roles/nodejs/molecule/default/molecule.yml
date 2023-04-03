@@ -1,16 +1,16 @@
 ---
 scenario:
   name: default
+driver:
+  name: docker
 lint: |
   set -e
   yamllint .
   ansible-lint
-driver:
-  name: docker
 platforms:
-  - name: docnow-instance
-    image: "geerlingguy/docker-ubuntu1804-ansible:latest"
-    command: /sbin/init
+  - name: instance
+    image: "pulibrary/puldocker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest"
+    command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

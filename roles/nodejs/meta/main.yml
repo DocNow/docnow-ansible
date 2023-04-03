@@ -1,19 +1,15 @@
 ---
 galaxy_info:
-  author: Francis Kayiwa
-  description: nodejs role
-  company: docnow
+  role_name: nodejs
+  company: Princeton University Library
+  description: NodeJS Role
+  author: pulibrary
 
-  license: BSD
+  license: MIT
 
-  min_ansible_version: 2.9
+  min_ansible_version: "2.9"
 
   platforms:
     - name: Ubuntu
       versions:
-        - 18.04
-    - name: Centos
-      versions:
-        - 7
-
-dependencies: []
+        - bionic

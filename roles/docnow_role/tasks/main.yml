@@ -1,8 +1,15 @@
 ---
 # tasks file for docnow_role
+#
+- name: Docnow | Make repos safe
+  ansible.builtin.command: git config --global --add safe.directory '{{ item }}'
+  become: true
+  loop:
+    - "{{ docnow_app_home }}/docnow"
+  changed_when: false
 
 - name: Docnow | Clone Docnow appraisal app
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/docnow/docnow.git"
     version: "{{ docnow_version }}"
     dest: "{{ docnow_app_home }}/docnow"
@@ -13,7 +20,7 @@
   tags: deploy
 
 - name: Docnow | change permissions
-  file:
+  ansible.builtin.file:
     path: "{{ docnow_app_home }}/docnow"
     state: directory
     recurse: true
@@ -24,7 +31,7 @@
   tags: deploy
 
 - name: Docnow | install node environment settings
-  template:
+  ansible.builtin.template:
     src: env.production.j2
     dest: "{{ docnow_app_home }}/docnow/.env.production"
     mode: 0644
@@ -32,21 +39,21 @@
   tags: deploy
 
 - name: Docnow | Symbolic Link
-  file:
+  ansible.builtin.file:
     src: "{{ docnow_app_home }}/docnow/.env.production"
     dest: "{{ docnow_app_home }}/docnow/.env"
     state: link
   tags: deploy
 
 - name: Docnow | Symbolic Link for public
-  file:
+  ansible.builtin.file:
     src: "{{ docnow_app_home }}/docnow/userData"
     dest: "{{ docnow_app_home }}/docnow/public"
     state: link
   tags: deploy
 
 - name: Docnow | install modules
-  command: npm install --production
+  ansible.builtin.command: npm install --production
   args:
     chdir: "{{ docnow_app_home }}/docnow"
   changed_when: false
@@ -55,7 +62,7 @@
   tags: deploy
 
 - name: Docnow | prune modules
-  command: npm prune --production
+  ansible.builtin.command: npm prune --production
   args:
     chdir: "{{ docnow_app_home }}/docnow"
   changed_when: false
@@ -64,7 +71,7 @@
   tags: deploy
 
 - name: Docnow | webpack installation
-  command: npm install --save-dev webpack-dev-middleware webpack-hot-middleware
+  ansible.builtin.command: npm install --save-dev webpack-dev-middleware webpack-hot-middleware
   args:
     chdir: "{{ docnow_app_home }}/docnow"
   changed_when: false
@@ -73,7 +80,7 @@
   tags: deploy
 
 - name: Docnow | tweet-loader configuration
-  template:
+  ansible.builtin.template:
     src: tweet-loader.service.j2
     dest: "/etc/systemd/system/tweet-loader.service"
     owner: root
@@ -84,7 +91,7 @@
   tags: deploy
 
 - name: Docnow | url-fetcher configuration
-  template:
+  ansible.builtin.template:
     src: url-fetcher.service.j2
     dest: "/etc/systemd/system/url-fetcher.service"
     owner: root
@@ -94,22 +101,24 @@
     - restart url-fetcher
   tags: deploy
 
-- name: Stop app (before db migration)
-  service:
+- name: Docnow | Stop app (before db migration)
+  ansible.builtin.service:
     name: nginx
     state: stopped
   notify:
     - restart nginx
   tags: deploy
 
-- name: Stop tweet-loader (before db migration)
-  service: name=tweet-loader state=stopped
+- name: Docnow | Stop tweet-loader (before db migration)
+  ansible.builtin.service:
+    name: tweet-loader
+    state: stopped
   notify:
     - restart tweet-loader
   tags: deploy
 
 - name: Stop url-fetcher (before db migration)
-  service:
+  ansible.builtin.service:
     name: url-fetcher
     state: stopped
   notify:
@@ -117,7 +126,7 @@
   tags: deploy
 
 - name: Docnow | migrate and createdb
-  command: npm run migrate
+  ansible.builtin.command: npm run migrate
   args:
     chdir: "{{ docnow_app_home }}/docnow"
   changed_when: false
