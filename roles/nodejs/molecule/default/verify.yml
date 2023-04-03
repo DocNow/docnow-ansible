@@ -1,11 +1,18 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
   gather_facts: false
   tasks:
-    - name: install package with npm
-      npm:
-        name: debug
-        global: yes
+  - name: check yarn package status
+    ansible.builtin.apt:
+      name: "{{ item }}"
+      state: present
+    check_mode: true
+    register: pkg_status
+    loop:
+      - yarn
+
+  - name: test for yarn packages
+    ansible.builtin.assert:
+      that:
+        - not pkg_status.changed
